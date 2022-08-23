@@ -9,9 +9,10 @@ import Favourite from "./components/fav/Favourite";
 export default function Nav() {
   return (
     <S.NavWrapper>
-      <Logo />
       <BrowserRouter>
-        <Link to={"/"}></Link>
+        <Link to={"/"}>
+          <Logo />
+        </Link>
         <Link to={"/favourtie"}>
           <button>Favourite</button>
         </Link>
@@ -24,6 +25,7 @@ export default function Nav() {
         <Link to={"/edit"}>
           <button>Edit</button>
         </Link>
+
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/favourtie" element={<Favourite />} />
