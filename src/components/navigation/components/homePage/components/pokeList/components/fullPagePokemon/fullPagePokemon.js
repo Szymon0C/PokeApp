@@ -17,7 +17,9 @@ export default function FullPagePokemon() {
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
 
   const { data } = useQuery([`pokemon${index}`], () => {
-    return axios.get(BASE_URL);
+    if (index) {
+      return axios.get(BASE_URL);
+    }
   });
 
   const { favPokemons, addPokemon, removePokemon } = useContext(
@@ -62,58 +64,62 @@ export default function FullPagePokemon() {
   const pokemon = data?.data;
   return (
     <S.Container>
-      <S.PokemonWrapper>
-        <S.Image
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png
+      {index && (
+        <S.PokemonWrapper>
+          <S.Image
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png
         `}
-          alt="pokemon.jpg"
-        />
-        <S.Pokemon>
-          <S.PokeHeading>
-            <h1>
-              {pokemon?.name.substring(0, 1).toUpperCase() +
-                pokemon?.name.substring(1)}
-            </h1>
+            alt="pokemon.jpg"
+          />
+          <S.Pokemon>
+            <S.PokeHeading>
+              <h1>
+                {pokemon?.name.substring(0, 1).toUpperCase() +
+                  pokemon?.name.substring(1)}
+              </h1>
 
-            <S.FavIcon
-              aria-label="like"
-              color={color}
-              onClick={favPokemonAction}
-            >
-              <FavoriteIcon />
-            </S.FavIcon>
-            <S.ArenaIcon color={arenaColor} onClick={arenaPokemonAction}>
-              <S.FightIcon src="/fight.svg" />
-            </S.ArenaIcon>
-          </S.PokeHeading>
+              <S.FavIcon
+                aria-label="like"
+                color={color}
+                onClick={favPokemonAction}
+              >
+                <FavoriteIcon />
+              </S.FavIcon>
+              <S.ArenaIcon color={arenaColor} onClick={arenaPokemonAction}>
+                <S.FightIcon src="/fight.svg" />
+              </S.ArenaIcon>
+            </S.PokeHeading>
 
-          <S.PokemonStats>
-            <S.PokeStatsColumn>
-              <S.PokeStatsWrapper>
-                <S.StatValue>{pokemon?.height}</S.StatValue>
-                <span>Height</span>
-              </S.PokeStatsWrapper>
+            <S.PokemonStats>
+              <S.PokeStatsColumn>
+                <S.PokeStatsWrapper>
+                  <S.StatValue>{pokemon?.height}</S.StatValue>
+                  <span>Height</span>
+                </S.PokeStatsWrapper>
 
-              <S.PokeStatsWrapper>
-                <S.StatValue>{pokemon?.weight}</S.StatValue>
-                <span>Weigth</span>
-              </S.PokeStatsWrapper>
-            </S.PokeStatsColumn>
+                <S.PokeStatsWrapper>
+                  <S.StatValue>{pokemon?.weight}</S.StatValue>
+                  <span>Weigth</span>
+                </S.PokeStatsWrapper>
+              </S.PokeStatsColumn>
 
-            <S.PokeStatsColumn>
-              <S.PokeStatsWrapper>
-                <S.StatValue>{pokemon?.base_experience}</S.StatValue>
-                <span>Base experience</span>
-              </S.PokeStatsWrapper>
+              <S.PokeStatsColumn>
+                <S.PokeStatsWrapper>
+                  <S.StatValue>{pokemon?.base_experience}</S.StatValue>
+                  <span>Base experience</span>
+                </S.PokeStatsWrapper>
 
-              <S.PokeStatsWrapper>
-                <S.StatValue>{pokemon?.abilities[0].ability.name}</S.StatValue>
-                <span>Ability</span>
-              </S.PokeStatsWrapper>
-            </S.PokeStatsColumn>
-          </S.PokemonStats>
-        </S.Pokemon>
-      </S.PokemonWrapper>
+                <S.PokeStatsWrapper>
+                  <S.StatValue>
+                    {pokemon?.abilities[0].ability.name}
+                  </S.StatValue>
+                  <span>Ability</span>
+                </S.PokeStatsWrapper>
+              </S.PokeStatsColumn>
+            </S.PokemonStats>
+          </S.Pokemon>
+        </S.PokemonWrapper>
+      )}
 
       <S.StyledLink to={"/"} onClick={clearIndex}>
         <S.StyledButton>Strona Główna</S.StyledButton>

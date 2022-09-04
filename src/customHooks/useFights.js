@@ -30,29 +30,19 @@ export default function useFights(index1, index2) {
 
   useEffect(() => {
     if (pokemon1 > pokemon2) {
-      setWinner(data1?.name);
+      setWinner(index1);
     }
     if (pokemon1 < pokemon2) {
-      setWinner(data2?.name);
+      setWinner(index2);
     }
     if (pokemon1 === pokemon2) {
       if (drawWinner) {
-        setWinner(pokemon2);
+        setWinner(index2);
       } else {
-        setWinner(pokemon1);
+        setWinner(index1);
       }
     }
   }, [data1, data2]);
-
-  // if (pokemon1 < pokemon2) {
-  //   setWinner(pokemon2);
-  // } else if (pokemon1 > pokemon2) {
-  //   setWinner(pokemon1);
-  // } else if (pokemon1 === pokemon2) {
-  //   if (drawWinner) {
-  //     setWinner(pokemon2);
-  //   }
-  // }
 
   return { winner };
 }

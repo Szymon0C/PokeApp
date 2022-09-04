@@ -50,4 +50,21 @@ const PokemonsWrapper = styled.div`
     }
   }
 `;
-export { ArenaWrapper, PokemonsWrapper };
+const StyledButton = styled.button`
+  width: 180px;
+  height: 70px;
+  position: relative;
+  bottom: 350px;
+  font-size: 16px;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #000;
+  &:hover {
+    transform: scale(1.1);
+    position: relative;
+    bottom: 350px;
+    border: 1px solid #eb3458;
+    color: #eb3458;
+  }
+`;
+export { ArenaWrapper, PokemonsWrapper, StyledButton };
