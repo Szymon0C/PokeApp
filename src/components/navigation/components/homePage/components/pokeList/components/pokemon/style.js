@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Image = styled.img`
-  width: 270px;
-  height: 300px;
+  width: 260px;
+  height: 270px;
 `;
 
 const PokemonCard = styled.div`
@@ -16,6 +16,9 @@ const PokemonCard = styled.div`
   align-items: center;
   @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
   font-family: "M PLUS Rounded 1c", sans-serif;
+  &:hover{
+    transform: scale(1.1);
+  };
 `;
 
 const PokemonStatWrapper = styled.div`
@@ -42,6 +45,7 @@ const StatValue = styled.span`
   font-size: 14px;
 `;
 const PokemonName = styled.h2`
+  color: #000;
   margin-bottom: 20px;
 `;
 

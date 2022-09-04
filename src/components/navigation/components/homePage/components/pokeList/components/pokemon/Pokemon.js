@@ -26,7 +26,6 @@ export default function Pokemon(prop) {
   if (status === "error") {
     return <h2>Error!</h2>;
   }
-
   return (
     <S.PokemonCard>
       <S.Image
