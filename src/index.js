@@ -7,13 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { IndexProvider } from "./contexts/IndexContext";
 import { FavouritePokemonProvider } from "./contexts/FavouritePokemonsContext";
+import { ArenaProvider } from "./contexts/ArenaContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <IndexProvider>
       <FavouritePokemonProvider>
-        <App />
+        <ArenaProvider>
+          <App />
+        </ArenaProvider>
       </FavouritePokemonProvider>
     </IndexProvider>
   </React.StrictMode>

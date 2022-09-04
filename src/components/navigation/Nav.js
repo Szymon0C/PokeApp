@@ -7,6 +7,8 @@ import * as S from "./style";
 import Logo from "./components/logo/Logo";
 import HomePage from "./components/homePage/HomePage";
 import Favourite from "./components/fav/Favourite";
+import Arena from "./components/arena/Arena";
+
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 
 import { IndexContext } from "../../contexts/IndexContext";
@@ -36,6 +38,7 @@ export default function Nav() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/favourtie" element={<Favourite />} />
+          <Route path="/arena" element={<Arena />} />
           <Route
             path="/full-page"
             element={<FullPagePokemon index={index} />}
