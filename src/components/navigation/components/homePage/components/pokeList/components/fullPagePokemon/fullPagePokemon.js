@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { FavouritePokemonContext } from "../../../../../../../../contexts/FavouritePokemonsContext";
+import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
@@ -22,11 +23,18 @@ export default function FullPagePokemon() {
   const { favPokemons, addPokemon, removePokemon } = useContext(
     FavouritePokemonContext
   );
+  const { arenaPokemons, addArenaPokemon, removeArenaPokemon } =
+    useContext(ArenaContext);
 
   const [color, setColor] = useState("default");
+  const [arenaColor, setArenaColor] = useState("default");
+
   useEffect(() => {
     if (favPokemons.includes(index)) {
       setColor("error");
+    }
+    if (arenaPokemons.includes(index)) {
+      setArenaColor("secondary");
     }
   }, []);
   const favPokemonAction = () => {
@@ -38,6 +46,19 @@ export default function FullPagePokemon() {
       removePokemon(index);
     }
   };
+
+  const arenaPokemonAction = () => {
+    if (arenaColor === "default") {
+      if (arenaPokemons.length < 2) {
+        setArenaColor("secondary");
+        addArenaPokemon(index);
+      }
+    } else {
+      setArenaColor("default");
+      removeArenaPokemon(index);
+    }
+  };
+
   const pokemon = data?.data;
   return (
     <S.Container>
@@ -61,7 +82,7 @@ export default function FullPagePokemon() {
             >
               <FavoriteIcon />
             </S.FavIcon>
-            <S.ArenaIcon color="secondary">
+            <S.ArenaIcon color={arenaColor} onClick={arenaPokemonAction}>
               <S.FightIcon src="/fight.svg" />
             </S.ArenaIcon>
           </S.PokeHeading>
