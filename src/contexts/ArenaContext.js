@@ -4,6 +4,8 @@ export const ArenaContext = createContext();
 
 export const ArenaProvider = ({ children }) => {
   const [arenaPokemons, setArenaPokemons] = useState([]);
+  const [win, setWin] = useState([]);
+  const [lose, setLose] = useState([]);
 
   const addArenaPokemon = (index) => {
     if (arenaPokemons.length < 2) {
@@ -17,9 +19,25 @@ export const ArenaProvider = ({ children }) => {
     setArenaPokemons([...arenaPokemons]);
   };
 
+  const addWin = (index) => {
+    setWin([...win, index]);
+  };
+  const addLose = (index) => {
+    setLose([...lose, index]);
+  };
+
   return (
     <ArenaContext.Provider
-      value={{ arenaPokemons, addArenaPokemon, removeArenaPokemon }}
+      value={{
+        arenaPokemons,
+        addArenaPokemon,
+        removeArenaPokemon,
+        setArenaPokemons,
+        addWin,
+        addLose,
+        win,
+        lose,
+      }}
     >
       {children}
     </ArenaContext.Provider>

@@ -29,7 +29,7 @@ const PokemonWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 400px;
+  width: 440px;
   height: 440px;
 `;
 const Pokemon = styled.div`

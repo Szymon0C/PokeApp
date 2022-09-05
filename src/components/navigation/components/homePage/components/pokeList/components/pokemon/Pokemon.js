@@ -1,6 +1,10 @@
-import React from "react";
+import { useContext } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+
+import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
+
+import useFightResult from "../../../../../../../../customHooks/useFightResult";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -14,7 +18,8 @@ export default function Pokemon(prop) {
   const { status, data } = useQuery([`pokemon${prop.url}`], () => {
     return axios.get(BASE_URL);
   });
-
+  const { win, lose } = useContext(ArenaContext);
+  const { winResult, loseResult } = useFightResult(prop.url, win, lose);
   const pokemon = data?.data;
   if (status === "loading") {
     return (
@@ -53,7 +58,9 @@ export default function Pokemon(prop) {
 
         <S.StatsWrapperColumn>
           <S.PokemonStatWrapper>
-            <S.StatValue>{pokemon?.base_experience}</S.StatValue>
+            <S.StatValue>
+              {pokemon?.base_experience + winResult * 10}
+            </S.StatValue>
             <S.StatName>Base experience</S.StatName>
           </S.PokemonStatWrapper>
           <S.PokemonStatWrapper>

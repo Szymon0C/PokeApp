@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import useFightResult from "../../../../../../../../customHooks/useFightResult";
+
 import axios from "axios";
 
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
@@ -14,6 +16,7 @@ import * as S from "./style";
 
 export default function FullPagePokemon() {
   const { index, clearIndex } = useContext(IndexContext);
+
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
 
   const { data } = useQuery([`pokemon${index}`], () => {
@@ -21,12 +24,14 @@ export default function FullPagePokemon() {
       return axios.get(BASE_URL);
     }
   });
+  const { arenaPokemons, addArenaPokemon, removeArenaPokemon, win, lose } =
+    useContext(ArenaContext);
 
   const { favPokemons, addPokemon, removePokemon } = useContext(
     FavouritePokemonContext
   );
-  const { arenaPokemons, addArenaPokemon, removeArenaPokemon } =
-    useContext(ArenaContext);
+
+  const { winResult, loseResult } = useFightResult(index, win, lose);
 
   const [color, setColor] = useState("default");
   const [arenaColor, setArenaColor] = useState("default");
@@ -101,11 +106,18 @@ export default function FullPagePokemon() {
                   <S.StatValue>{pokemon?.weight}</S.StatValue>
                   <span>Weigth</span>
                 </S.PokeStatsWrapper>
+
+                <S.PokeStatsWrapper>
+                  <S.StatValue>{winResult}</S.StatValue>
+                  <span>Wins</span>
+                </S.PokeStatsWrapper>
               </S.PokeStatsColumn>
 
               <S.PokeStatsColumn>
                 <S.PokeStatsWrapper>
-                  <S.StatValue>{pokemon?.base_experience}</S.StatValue>
+                  <S.StatValue>
+                    {pokemon?.base_experience + winResult * 10}
+                  </S.StatValue>
                   <span>Base experience</span>
                 </S.PokeStatsWrapper>
 
@@ -114,6 +126,11 @@ export default function FullPagePokemon() {
                     {pokemon?.abilities[0].ability.name}
                   </S.StatValue>
                   <span>Ability</span>
+                </S.PokeStatsWrapper>
+
+                <S.PokeStatsWrapper>
+                  <S.StatValue>{loseResult}</S.StatValue>
+                  <span>Loses</span>
                 </S.PokeStatsWrapper>
               </S.PokeStatsColumn>
             </S.PokemonStats>
