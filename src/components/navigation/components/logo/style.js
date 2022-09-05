@@ -6,6 +6,8 @@ const LogoWrapper = styled.div`
   @import url("http://fonts.cdnfonts.com/css/pokemon-solid");
   font-family: "Pokemon Solid", sans-serif;
   font-size: 25px;
+  text-decoration: none;
+  color: #000;
 `;
 
 export { LogoWrapper };

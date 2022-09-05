@@ -8,6 +8,7 @@ import Logo from "./components/logo/Logo";
 import HomePage from "./components/homePage/HomePage";
 import Favourite from "./components/fav/Favourite";
 import Arena from "./components/arena/Arena";
+import RegLog from "./components/regLog/RegLog";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 
@@ -19,9 +20,9 @@ export default function Nav() {
   return (
     <S.NavWrapper>
       <BrowserRouter>
-        <Link to={"/"}>
+        <S.StyledLink to={"/"}>
           <Logo />
-        </Link>
+        </S.StyledLink>
         <Link to={"/favourtie"}>
           <button>Favourite</button>
         </Link>
@@ -29,7 +30,7 @@ export default function Nav() {
           <button>Arena</button>
         </Link>
         <Link to={"/log-reg"}>
-          <button>Login</button>
+          <button>Register</button>
         </Link>
         <Link to={"/edit"}>
           <button>Edit</button>
@@ -39,6 +40,8 @@ export default function Nav() {
           <Route path="/" element={<HomePage />} />
           <Route path="/favourtie" element={<Favourite />} />
           <Route path="/arena" element={<Arena />} />
+          <Route path="/log-reg" element={<RegLog />} />
+
           <Route
             path="/full-page"
             element={<FullPagePokemon index={index} />}

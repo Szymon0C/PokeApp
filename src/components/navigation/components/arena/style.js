@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const ArenaWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,4 +80,5 @@ const StyledButton = styled.button`
     color: #eb3458;
   }
 `;
+
 export { ArenaWrapper, PokemonsWrapper, StyledButton, ClearButton };

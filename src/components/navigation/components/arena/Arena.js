@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import { ArenaContext } from "../../../../contexts/ArenaContext";
-
+import { Link } from "react-router-dom";
 import useFights from "../../../../customHooks/useFights";
 
 import Pokemon from "../homePage/components/pokeList/components/pokemon/Pokemon";
@@ -29,18 +29,6 @@ export default function Arena() {
   };
 
   const showResults = () => {
-    console.log(
-      "win" +
-        win.filter((e) => {
-          return typeof e === "number";
-        }).length
-    );
-    console.log(
-      "lose" +
-        lose.filter((e) => {
-          return typeof e === "number";
-        }).length
-    );
     return (
       <>
         <Pokemon url={winnerIndex} />
@@ -55,7 +43,7 @@ export default function Arena() {
   }, [winnerIndex]);
 
   if (arenaPokemons.length === 0) {
-    return <h1>Brak Pokemonów na arenie!</h1>;
+    return <h1>No pokemon in the arena!</h1>;
   }
 
   return (
@@ -69,13 +57,17 @@ export default function Arena() {
           </S.PokemonsWrapper>
         </>
       )}
-      <S.ClearButton
-        onClick={() => {
-          setArenaPokemons([]);
-        }}
-      >
-        Clear the arena!
-      </S.ClearButton>
+
+      <Link to={"/"}>
+        <S.ClearButton
+          onClick={() => {
+            setArenaPokemons([]);
+          }}
+        >
+          Leave the arena
+        </S.ClearButton>
+      </Link>
+
       {winner && <S.StyledButton onClick={whoWin}>Let's fight</S.StyledButton>}
       {winnerIndex && showResults()}
     </S.ArenaWrapper>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-const NavWrapper = styled.div`
-  // margin-left: 15px;
-  // height: 80px;
-  // display: flex;
-  // justify-content: space-between;
+import { Link } from "react-router-dom";
+const NavWrapper = styled.div``;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
 `;
-export { NavWrapper };
+export { NavWrapper, StyledLink };

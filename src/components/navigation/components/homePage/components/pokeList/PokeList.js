@@ -31,9 +31,9 @@ export default function PokeList() {
         );
       })}
       <S.ButtonsWrapper>
-        <button onClick={prevPage}>prev page</button>
-        <span>{page + 1}</span>
-        <button onClick={nextPage}>next page</button>
+        <S.PageButtons onClick={prevPage}>prev page</S.PageButtons>
+        <S.StyledPage>{page + 1}</S.StyledPage>
+        <S.PageButtons onClick={nextPage}>next page</S.PageButtons>
       </S.ButtonsWrapper>
     </>
   );
