@@ -1,15 +1,31 @@
+import { useContext } from "react";
 import { useFormik } from "formik";
 import { basicSchema } from "../../../../../schemas";
 
+import { UsersContext } from "../../../../../contexts/UsersContext";
 import * as S from "./style";
 
 export default function Registration() {
-  const onSubmit = () => {
-    console.log(formik.values);
+  const { addUser } = useContext(UsersContext);
+
+  const onSubmit = (values, action) => {
+    addUser(values);
+    setTimeout(() => {
+      action.resetForm();
+    }, 500);
   };
 
-  const formik = useFormik({
+  const {
+    errors,
+    values,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -19,41 +35,77 @@ export default function Registration() {
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="email">email</label>
-        <S.styledInput
-          error={formik.errors.email ? true : false}
-          type="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          id="email"
-          placeholder="Enter your email"
-          onBlur={formik.handleBlur}
-        />
+    <>
+      <S.FormWrapper>
+        <S.StyledForm onSubmit={handleSubmit}>
+          <S.InputWrapper>
+            <label htmlFor="name">name</label>
+            <S.StyledInput
+              error={errors.name && touched.name ? true : false}
+              type="text"
+              value={values.name}
+              onChange={handleChange}
+              id="name"
+              placeholder="Enter your name"
+              onBlur={handleBlur}
+            />
+            {errors.name && touched.name && (
+              <S.ErrorMessage>{errors.name}</S.ErrorMessage>
+            )}
+          </S.InputWrapper>
+          <S.InputWrapper>
+            <label htmlFor="email">email</label>
+            <S.StyledInput
+              error={errors.email && touched.email ? true : false}
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              id="email"
+              placeholder="Enter your email"
+              onBlur={handleBlur}
+            />
+            {errors.email && touched.email && (
+              <S.ErrorMessage>{errors.email}</S.ErrorMessage>
+            )}
+          </S.InputWrapper>
+          <S.InputWrapper>
+            <label htmlFor="password">password</label>
+            <S.StyledInput
+              error={errors.password && touched.password ? true : false}
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+              id="password"
+              placeholder="Enter your password"
+              onBlur={handleBlur}
+            />
+            {errors.password && touched.password && (
+              <S.ErrorMessage>{errors.password}</S.ErrorMessage>
+            )}
+          </S.InputWrapper>
+          <S.InputWrapper>
+            <label>confirm password</label>
+            <S.StyledInput
+              error={
+                errors.confirmPassword && touched.confirmPassword ? true : false
+              }
+              type="password"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              id="confirmPassword"
+              placeholder="Confirm password"
+              onBlur={handleBlur}
+            />
+            {errors.confirmPassword && touched.confirmPassword && (
+              <S.ErrorMessage>{errors.confirmPassword}</S.ErrorMessage>
+            )}
+          </S.InputWrapper>
 
-        <label htmlFor="password">password</label>
-        <S.styledInput
-          error={formik.errors.password ? true : false}
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          id="password"
-          placeholder="Enter your password"
-          onBlur={formik.handleBlur}
-        />
-        <label>confirm password</label>
-        <S.styledInput
-          error={formik.errors.confirmPassword ? true : false}
-          type="password"
-          value={formik.values.confirmPassword}
-          onChange={formik.handleChange}
-          id="confirmPassword"
-          placeholder="Confirm password"
-          onBlur={formik.handleBlur}
-        />
-        <button type="submit">submit</button>
-      </form>
-    </div>
+          <S.StyledButton disabled={isSubmitting} type="submit">
+            submit
+          </S.StyledButton>
+        </S.StyledForm>
+      </S.FormWrapper>
+    </>
   );
 }

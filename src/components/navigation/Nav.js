@@ -11,12 +11,14 @@ import Arena from "./components/arena/Arena";
 import RegLog from "./components/regLog/RegLog";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
+import Registration from "./components/regLog/registration/Registration";
 
 import { IndexContext } from "../../contexts/IndexContext";
+import { UsersContext } from "../../contexts/UsersContext";
 
 export default function Nav() {
   const { index } = useContext(IndexContext);
-
+  const { logged, logOut } = useContext(UsersContext);
   return (
     <S.NavWrapper>
       <BrowserRouter>
@@ -30,11 +32,13 @@ export default function Nav() {
           <button>Arena</button>
         </Link>
         <Link to={"/log-reg"}>
-          <button>Register</button>
+          <button>Login</button>
         </Link>
-        <Link to={"/edit"}>
-          <button>Edit</button>
-        </Link>
+        {logged && (
+          <Link to={"/edit"}>
+            <button>Edit</button>
+          </Link>
+        )}
 
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -46,8 +50,16 @@ export default function Nav() {
             path="/full-page"
             element={<FullPagePokemon index={index} />}
           />
+
+          <Route path="/register" element={<Registration />} />
         </Routes>
       </BrowserRouter>
+      {logged && (
+        <>
+          <span>Zalogowany:{logged.name}</span>
+          <button onClick={logOut}>log out</button>
+        </>
+      )}
     </S.NavWrapper>
   );
 }

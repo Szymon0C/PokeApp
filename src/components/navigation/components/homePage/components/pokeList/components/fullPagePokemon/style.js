@@ -36,7 +36,6 @@ const Pokemon = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 800px;
 `;
 const PokemonStats = styled.div`

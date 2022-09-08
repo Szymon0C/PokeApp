@@ -8,17 +8,20 @@ import reportWebVitals from "./reportWebVitals";
 import { IndexProvider } from "./contexts/IndexContext";
 import { FavouritePokemonProvider } from "./contexts/FavouritePokemonsContext";
 import { ArenaProvider } from "./contexts/ArenaContext";
+import { UsersProvider } from "./contexts/UsersContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <IndexProvider>
-      <FavouritePokemonProvider>
-        <ArenaProvider>
-          <App />
-        </ArenaProvider>
-      </FavouritePokemonProvider>
-    </IndexProvider>
+    <UsersProvider>
+      <IndexProvider>
+        <FavouritePokemonProvider>
+          <ArenaProvider>
+            <App />
+          </ArenaProvider>
+        </FavouritePokemonProvider>
+      </IndexProvider>
+    </UsersProvider>
   </React.StrictMode>
 );
 
