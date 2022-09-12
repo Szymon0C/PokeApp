@@ -9,12 +9,13 @@ import Pokemon from "../homePage/components/pokeList/components/pokemon/Pokemon"
 import * as S from "./style";
 
 export default function Arena() {
-  const { arenaPokemons, setArenaPokemons, addWin, addLose, win, lose } =
+  const { arenaPokemons, setArenaPokemons, addWin, addLose } =
     useContext(ArenaContext);
 
   const { winner } = useFights(arenaPokemons[0], arenaPokemons[1]);
   const [winnerIndex, setWinnerIndex] = useState(null);
   const [loserIndex, setLoserIndex] = useState(null);
+
   const whoWin = () => {
     setWinnerIndex(
       arenaPokemons.filter((index) => {
@@ -40,10 +41,15 @@ export default function Arena() {
   useEffect(() => {
     addWin(winnerIndex);
     addLose(loserIndex);
-  }, [winnerIndex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [winnerIndex, loserIndex]);
 
   if (arenaPokemons.length === 0) {
-    return <h1>No pokemon in the arena!</h1>;
+    return (
+      <>
+        <h1>No pokemon in the arena!</h1>
+      </>
+    );
   }
 
   return (

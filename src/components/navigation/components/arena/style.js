@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 const ArenaWrapper = styled.div`
   display: flex;
   flex-direction: column;

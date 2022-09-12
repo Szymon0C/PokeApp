@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import { useFormik } from "formik";
-import { basicSchema } from "../../../../../schemas";
+import { registerSchema } from "../../../../../schemas";
 
+import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../../../../../contexts/UsersContext";
-import * as S from "./style";
+import * as S from "../style";
 
 export default function Registration() {
+  const navigate = useNavigate();
   const { addUser } = useContext(UsersContext);
 
-  const onSubmit = (values, action) => {
+  const onSubmit = (values) => {
     addUser(values);
-    setTimeout(() => {
-      action.resetForm();
-    }, 500);
+    navigate("/");
   };
 
   const {
@@ -30,7 +30,7 @@ export default function Registration() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: basicSchema,
+    validationSchema: registerSchema,
     onSubmit,
   });
 

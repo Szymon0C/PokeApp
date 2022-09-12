@@ -42,6 +42,7 @@ export default function useFights(index1, index2) {
         setWinner(index1);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data1, data2]);
 
   return { winner };

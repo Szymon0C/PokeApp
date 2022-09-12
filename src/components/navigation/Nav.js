@@ -9,6 +9,7 @@ import HomePage from "./components/homePage/HomePage";
 import Favourite from "./components/fav/Favourite";
 import Arena from "./components/arena/Arena";
 import RegLog from "./components/regLog/RegLog";
+import Edit from "./components/edit/Edit";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 import Registration from "./components/regLog/registration/Registration";
@@ -31,9 +32,13 @@ export default function Nav() {
         <Link to={"/arena"}>
           <button>Arena</button>
         </Link>
-        <Link to={"/log-reg"}>
-          <button>Login</button>
-        </Link>
+
+        {!logged && (
+          <Link to={"/log-reg"}>
+            <button>Login</button>
+          </Link>
+        )}
+
         {logged && (
           <Link to={"/edit"}>
             <button>Edit</button>
@@ -44,7 +49,8 @@ export default function Nav() {
           <Route path="/" element={<HomePage />} />
           <Route path="/favourtie" element={<Favourite />} />
           <Route path="/arena" element={<Arena />} />
-          <Route path="/log-reg" element={<RegLog />} />
+          {!logged && <Route path="/log-reg" element={<RegLog />} />}
+          {logged && <Route path="/edit" element={<Edit />} />}
 
           <Route
             path="/full-page"

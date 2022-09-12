@@ -19,7 +19,7 @@ export default function Pokemon(prop) {
     return axios.get(BASE_URL);
   });
   const { win, lose } = useContext(ArenaContext);
-  const { winResult, loseResult } = useFightResult(prop.url, win, lose);
+  const { winResult } = useFightResult(prop.url, win, lose);
   const pokemon = data?.data;
   if (status === "loading") {
     return (

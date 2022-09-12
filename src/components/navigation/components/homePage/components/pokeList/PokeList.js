@@ -7,11 +7,10 @@ import Pokemon from "./components/pokemon/Pokemon";
 import * as S from "./style";
 
 import { IndexContext } from "../../../../../../contexts/IndexContext";
-import { Link } from "react-router-dom";
 
 export default function PokeList() {
   const { page, nextPage, prevPage } = usePage();
-  const { index, setIndex } = useContext(IndexContext);
+  const { setIndex } = useContext(IndexContext);
   const currentPokemons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   return (

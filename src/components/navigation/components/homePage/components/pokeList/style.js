@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { style } from "@mui/system";
 
 const StyledButton = styled.button`
   border: none;

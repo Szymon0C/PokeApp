@@ -43,6 +43,7 @@ export default function FullPagePokemon() {
     if (arenaPokemons.includes(index)) {
       setArenaColor("secondary");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const favPokemonAction = () => {
     if (color === "default") {
