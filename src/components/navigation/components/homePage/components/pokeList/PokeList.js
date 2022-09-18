@@ -5,29 +5,45 @@ import usePage from "../../../../../../customHooks/usePage";
 import Pokemon from "./components/pokemon/Pokemon";
 
 import * as S from "./style";
-
+import { useLocation } from "react-router-dom";
 import { IndexContext } from "../../../../../../contexts/IndexContext";
 
 export default function PokeList() {
+  const location = useLocation();
   const { page, nextPage, prevPage } = usePage();
   const { setIndex } = useContext(IndexContext);
   const currentPokemons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
+  const showComponent = (i) => {
+    if (location.pathname === "/") {
+      return (
+        <S.StyledLink
+          to={"/full-page"}
+          onClick={() => {
+            setIndex(i + 15 * page);
+          }}
+        >
+          <Pokemon key={i} url={i + 15 * page} />
+        </S.StyledLink>
+      );
+    } else {
+      return (
+        <S.StyledLink
+          to={"/pokemon-edit"}
+          onClick={() => {
+            setIndex(i + 15 * page);
+          }}
+        >
+          <Pokemon key={i} url={i + 15 * page} />
+        </S.StyledLink>
+      );
+    }
+  };
+
   return (
     <>
       {currentPokemons.map((i) => {
-        return (
-          <S.StyledButton key={i}>
-            <S.StyledLink
-              to={"/full-page"}
-              onClick={() => {
-                setIndex(i + 15 * page);
-              }}
-            >
-              <Pokemon key={i} url={i + 15 * page} />
-            </S.StyledLink>
-          </S.StyledButton>
-        );
+        return <S.StyledButton key={i}>{showComponent(i)}</S.StyledButton>;
       })}
       <S.ButtonsWrapper>
         <S.PageButtons onClick={prevPage}>prev page</S.PageButtons>

@@ -13,6 +13,7 @@ import Edit from "./components/edit/Edit";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 import Registration from "./components/regLog/registration/Registration";
+import PokemonEdit from "./components/edit/PokemonEdit";
 
 import { IndexContext } from "../../contexts/IndexContext";
 import { UsersContext } from "../../contexts/UsersContext";
@@ -20,37 +21,63 @@ import { UsersContext } from "../../contexts/UsersContext";
 export default function Nav() {
   const { index } = useContext(IndexContext);
   const { logged, logOut } = useContext(UsersContext);
+  const editComponents = () => {
+    if (logged) {
+      return (
+        <>
+          <Route path="/edit" element={<Edit />} />
+          <Route path="/pokemon-edit" element={<PokemonEdit />} />
+        </>
+      );
+    } else return <Route path="/log-reg" element={<RegLog />} />;
+  };
   return (
-    <S.NavWrapper>
-      <BrowserRouter>
+    <BrowserRouter>
+      <S.NavWrapper>
         <S.StyledLink to={"/"}>
           <Logo />
         </S.StyledLink>
-        <Link to={"/favourtie"}>
-          <button>Favourite</button>
-        </Link>
-        <Link to={"/arena"}>
-          <button>Arena</button>
-        </Link>
 
-        {!logged && (
-          <Link to={"/log-reg"}>
-            <button>Login</button>
+        <div>
+          <Link to={"/favourtie"}>
+            <S.NavButton>Favourite</S.NavButton>
           </Link>
-        )}
+          <Link to={"/arena"}>
+            <S.NavButton>Arena</S.NavButton>
+          </Link>
+
+          {!logged && (
+            <Link to={"/log-reg"}>
+              <S.NavButton>Login</S.NavButton>
+            </Link>
+          )}
+
+          {logged && (
+            <Link to={"/edit"}>
+              <S.NavButton>Edit</S.NavButton>
+            </Link>
+          )}
+        </div>
 
         {logged && (
-          <Link to={"/edit"}>
-            <button>Edit</button>
-          </Link>
+          <S.LogDiv>
+            <div>
+              <span>Zalogowany:</span>
+              <S.AccountName>{logged.name}</S.AccountName>
+            </div>
+            <S.LogOutButton onClick={logOut}>log out</S.LogOutButton>
+          </S.LogDiv>
         )}
+        {!logged && <div />}
+      </S.NavWrapper>
 
+      <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/favourtie" element={<Favourite />} />
           <Route path="/arena" element={<Arena />} />
-          {!logged && <Route path="/log-reg" element={<RegLog />} />}
-          {logged && <Route path="/edit" element={<Edit />} />}
+
+          {editComponents()}
 
           <Route
             path="/full-page"
@@ -59,13 +86,7 @@ export default function Nav() {
 
           <Route path="/register" element={<Registration />} />
         </Routes>
-      </BrowserRouter>
-      {logged && (
-        <>
-          <span>Zalogowany:{logged.name}</span>
-          <button onClick={logOut}>log out</button>
-        </>
-      )}
-    </S.NavWrapper>
+      </div>
+    </BrowserRouter>
   );
 }

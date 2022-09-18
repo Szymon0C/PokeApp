@@ -21,7 +21,7 @@ export default function Login() {
     setClicked(true);
     console.log(logged);
     if (logged) {
-      navigate("/");
+      navigate("/edit");
     }
   };
 

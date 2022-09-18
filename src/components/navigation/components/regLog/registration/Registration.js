@@ -12,7 +12,7 @@ export default function Registration() {
 
   const onSubmit = (values) => {
     addUser(values);
-    navigate("/");
+    navigate("/edit");
   };
 
   const {

@@ -4,7 +4,7 @@ export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [logged, setLogged] = useState(null);
+  const [logged, setLogged] = useState(true);
   let repeat = false;
   const addUser = (newUser) => {
     // eslint-disable-next-line
