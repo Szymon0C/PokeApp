@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import { ArenaContext } from "../../../../contexts/ArenaContext";
+import { EditContext } from "../../../../contexts/EditContext";
 import { Link } from "react-router-dom";
 import useFights from "../../../../customHooks/useFights";
 
@@ -11,6 +12,7 @@ import * as S from "./style";
 export default function Arena() {
   const { arenaPokemons, setArenaPokemons, addWin, addLose } =
     useContext(ArenaContext);
+  const { updatedPokemon } = useContext(EditContext);
 
   const { winner } = useFights(arenaPokemons[0], arenaPokemons[1]);
   const [winnerIndex, setWinnerIndex] = useState(null);
