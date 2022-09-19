@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Fab } from "@mui/material";
 
 const Image = styled.img`
   width: 270px;
@@ -48,7 +49,10 @@ const PokemonName = styled.h2`
   color: #000;
   margin-bottom: 20px;
 `;
-
+const Icon = styled(Fab)`
+  left: 280px;
+  top: 10px;
+`;
 export {
   PokemonCard,
   Image,
@@ -58,4 +62,5 @@ export {
   StatName,
   StatValue,
   PokemonName,
+  Icon,
 };

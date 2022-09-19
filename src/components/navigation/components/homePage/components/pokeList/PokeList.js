@@ -46,13 +46,17 @@ export default function PokeList() {
     <>
       {newPokemon.map((pokemon) => {
         return (
-          <S.StyledButton key={pokemon.name}>
+          <S.StyledButton key={pokemon.name} role="button">
             <Pokemon edit={pokemon} key={pokemon.name} />
           </S.StyledButton>
         );
       })}
       {currentPokemons.map((i) => {
-        return <S.StyledButton key={i}>{showComponent(i)}</S.StyledButton>;
+        return (
+          <S.StyledButton key={i} role="button">
+            {showComponent(i)}
+          </S.StyledButton>
+        );
       })}
       <S.ButtonsWrapper>
         <S.PageButtons onClick={prevPage}>prev page</S.PageButtons>

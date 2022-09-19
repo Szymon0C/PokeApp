@@ -11,9 +11,21 @@ export const EditProvider = ({ children }) => {
   const updatePokemon = (pokemon) => {
     setUpdatedPokemon([...updatedPokemon, pokemon]);
   };
+  const removePokemon = (pokeInfo) => {
+    const choosenPokemon = newPokemon.filter((pokemon) => {
+      return pokemon.name !== pokeInfo.name;
+    });
+    setNewPokemon(choosenPokemon);
+  };
   return (
     <EditContext.Provider
-      value={{ newPokemon, updatedPokemon, addNewPokemon, updatePokemon }}
+      value={{
+        newPokemon,
+        updatedPokemon,
+        addNewPokemon,
+        updatePokemon,
+        removePokemon,
+      }}
     >
       {children}
     </EditContext.Provider>

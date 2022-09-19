@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
 import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
 
+import ClearIcon from "@mui/icons-material/Clear";
 import useFightResult from "../../../../../../../../customHooks/useFightResult";
 
 import CircularProgress from "@mui/material/CircularProgress";
@@ -22,7 +23,7 @@ export default function Pokemon(prop) {
     return axios.get(BASE_URL);
   });
   const { win, lose } = useContext(ArenaContext);
-  const { updatedPokemon } = useContext(EditContext);
+  const { updatedPokemon, removePokemon } = useContext(EditContext);
 
   const { winResult } = useFightResult(prop.url, win, lose);
   const pokemon = data?.data;
@@ -49,6 +50,7 @@ export default function Pokemon(prop) {
       pokemon?.base_experience + winResult * 10,
     ability: prop.edit?.ability || pokemon?.abilities[0].ability.name,
   };
+
   updatedPokemon.map((pokemon) => {
     if (prop.url === pokemon.index) {
       pokeInfo.name = pokemon.name;
@@ -58,15 +60,29 @@ export default function Pokemon(prop) {
       pokeInfo.ability = pokemon.ability;
     }
   });
+
   return (
     <S.PokemonCard>
-      <S.Image
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          prop.edit?.index || prop.url
-        }.png
+      <div style={{ display: "flex" }}>
+        {prop.edit?.index && (
+          <S.Icon
+            size="small"
+            onClick={() => {
+              removePokemon(pokeInfo);
+            }}
+          >
+            <ClearIcon />
+          </S.Icon>
+        )}
+        <S.Image
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            prop.edit?.index || prop.url
+          }.png
         `}
-        alt="pokemon.jpg"
-      />
+          alt="pokemon.jpg"
+        />
+      </div>
+
       <S.PokemonName>{pokeInfo.name}</S.PokemonName>
 
       <S.StatsWrapper>
