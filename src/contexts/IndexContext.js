@@ -4,7 +4,6 @@ export const IndexContext = createContext();
 
 export const IndexProvider = ({ children }) => {
   const [index, setIndex] = useState(null);
-
   const clearIndex = () => {
     setIndex(null);
   };

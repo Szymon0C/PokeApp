@@ -22,7 +22,6 @@ export const registerSchema = yup.object().shape({
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required("Required"),
-
   password: yup
     .string()
     .matches(passwordRules, {
@@ -30,4 +29,12 @@ export const loginSchema = yup.object().shape({
         "The password must match: At least 8 characters, at least 1 uppercase letter,  at least 1 lowercase letter, and 1 number",
     })
     .required("Required"),
+});
+
+export const pokemonEditSchema = yup.object().shape({
+  name: yup.string().min(1).max(20),
+  ability: yup.string().min(1).max(20),
+  height: yup.number().lessThan(10000),
+  weight: yup.number().lessThan(10000),
+  exerience: yup.number().lessThan(10000),
 });

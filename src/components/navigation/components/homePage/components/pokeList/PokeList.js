@@ -7,11 +7,13 @@ import Pokemon from "./components/pokemon/Pokemon";
 import * as S from "./style";
 import { useLocation } from "react-router-dom";
 import { IndexContext } from "../../../../../../contexts/IndexContext";
-
+import { EditContext } from "../../../../../../contexts/EditContext";
 export default function PokeList() {
   const location = useLocation();
   const { page, nextPage, prevPage } = usePage();
   const { setIndex } = useContext(IndexContext);
+  const { newPokemon } = useContext(EditContext);
+
   const currentPokemons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   const showComponent = (i) => {
@@ -42,6 +44,13 @@ export default function PokeList() {
 
   return (
     <>
+      {newPokemon.map((pokemon) => {
+        return (
+          <S.StyledButton key={pokemon.name}>
+            <Pokemon edit={pokemon} key={pokemon.name} />
+          </S.StyledButton>
+        );
+      })}
       {currentPokemons.map((i) => {
         return <S.StyledButton key={i}>{showComponent(i)}</S.StyledButton>;
       })}

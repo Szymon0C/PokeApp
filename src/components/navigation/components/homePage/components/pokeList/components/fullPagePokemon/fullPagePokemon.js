@@ -9,6 +9,7 @@ import axios from "axios";
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { FavouritePokemonContext } from "../../../../../../../../contexts/FavouritePokemonsContext";
 import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
+import { EditContext } from "../../../../../../../../contexts/EditContext";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
@@ -16,6 +17,7 @@ import * as S from "./style";
 
 export default function FullPagePokemon() {
   const { index, clearIndex } = useContext(IndexContext);
+  const { updatedPokemon } = useContext(EditContext);
 
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
 
@@ -68,6 +70,26 @@ export default function FullPagePokemon() {
   };
 
   const pokemon = data?.data;
+
+  const pokeInfo = {
+    image: index,
+    name:
+      pokemon?.name.substring(0, 1).toUpperCase() + pokemon?.name.substring(1),
+    height: pokemon?.height,
+    weight: pokemon?.weight,
+    experience: pokemon?.base_experience + winResult * 10,
+    ability: pokemon?.abilities[0].ability.name,
+  };
+  updatedPokemon.map((pokemon) => {
+    if (index === pokemon.index) {
+      pokeInfo.name = pokemon.name;
+      pokeInfo.height = pokemon.height;
+      pokeInfo.weight = pokemon.weight;
+      pokeInfo.experience = pokemon.experience + winResult * 10;
+      pokeInfo.ability = pokemon.ability;
+    }
+  });
+
   return (
     <S.Container>
       {index && (
@@ -79,10 +101,7 @@ export default function FullPagePokemon() {
           />
           <S.Pokemon>
             <S.PokeHeading>
-              <h1>
-                {pokemon?.name.substring(0, 1).toUpperCase() +
-                  pokemon?.name.substring(1)}
-              </h1>
+              <h1>{pokeInfo.name}</h1>
 
               <S.FavIcon
                 aria-label="like"
@@ -99,12 +118,12 @@ export default function FullPagePokemon() {
             <S.PokemonStats>
               <S.PokeStatsColumn>
                 <S.PokeStatsWrapper>
-                  <S.StatValue>{pokemon?.height}</S.StatValue>
+                  <S.StatValue>{pokeInfo.height}</S.StatValue>
                   <span>Height</span>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
-                  <S.StatValue>{pokemon?.weight}</S.StatValue>
+                  <S.StatValue>{pokeInfo.weight}</S.StatValue>
                   <span>Weigth</span>
                 </S.PokeStatsWrapper>
 
@@ -116,16 +135,12 @@ export default function FullPagePokemon() {
 
               <S.PokeStatsColumn>
                 <S.PokeStatsWrapper>
-                  <S.StatValue>
-                    {pokemon?.base_experience + winResult * 10}
-                  </S.StatValue>
+                  <S.StatValue>{pokeInfo.experience}</S.StatValue>
                   <span>Base experience</span>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
-                  <S.StatValue>
-                    {pokemon?.abilities[0].ability.name}
-                  </S.StatValue>
+                  <S.StatValue>{pokeInfo.ability}</S.StatValue>
                   <span>Ability</span>
                 </S.PokeStatsWrapper>
 
