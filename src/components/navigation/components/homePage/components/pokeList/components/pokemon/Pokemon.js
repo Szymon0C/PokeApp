@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
+import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import useFightResult from "../../../../../../../../customHooks/useFightResult";
@@ -22,8 +23,17 @@ export default function Pokemon(prop) {
   const { status, data } = useQuery([`pokemon${prop.url}`], () => {
     return axios.get(BASE_URL);
   });
+  //
+  // fetch(" https://pokeapi.co/api/v2/pokemon/?limit=1154")
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log(res);
+  //   });
+
+  //
   const { win, lose } = useContext(ArenaContext);
   const { updatedPokemon, removePokemon } = useContext(EditContext);
+  const { theme } = useContext(ThemeContext);
 
   const { winResult } = useFightResult(prop.url, win, lose);
   const pokemon = data?.data;
@@ -62,7 +72,7 @@ export default function Pokemon(prop) {
   });
 
   return (
-    <S.PokemonCard>
+    <S.PokemonCard theme={theme}>
       <div style={{ display: "flex" }}>
         {prop.edit?.index && (
           <S.Icon
@@ -74,6 +84,7 @@ export default function Pokemon(prop) {
             <ClearIcon />
           </S.Icon>
         )}
+
         <S.Image
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             prop.edit?.index || prop.url
@@ -88,24 +99,24 @@ export default function Pokemon(prop) {
       <S.StatsWrapper>
         <S.StatsWrapperColumn>
           <S.PokemonStatWrapper>
-            <S.StatValue>{pokeInfo.height}</S.StatValue>
-            <S.StatName>Height</S.StatName>
+            <S.StatValue theme={theme}>{pokeInfo.height}</S.StatValue>
+            <S.StatName theme={theme}>Height</S.StatName>
           </S.PokemonStatWrapper>
 
           <S.PokemonStatWrapper>
-            <S.StatValue>{pokeInfo.weight}</S.StatValue>
-            <S.StatName>Weigth</S.StatName>
+            <S.StatValue theme={theme}>{pokeInfo.weight}</S.StatValue>
+            <S.StatName theme={theme}>Weigth</S.StatName>
           </S.PokemonStatWrapper>
         </S.StatsWrapperColumn>
 
         <S.StatsWrapperColumn>
           <S.PokemonStatWrapper>
-            <S.StatValue>{pokeInfo.experience}</S.StatValue>
-            <S.StatName>Base experience</S.StatName>
+            <S.StatValue theme={theme}>{pokeInfo.experience}</S.StatValue>
+            <S.StatName theme={theme}>Base experience</S.StatName>
           </S.PokemonStatWrapper>
           <S.PokemonStatWrapper>
-            <S.StatValue>{pokeInfo.ability}</S.StatValue>
-            <S.StatName>Ability</S.StatName>
+            <S.StatValue theme={theme}>{pokeInfo.ability}</S.StatValue>
+            <S.StatName theme={theme}>Ability</S.StatName>
           </S.PokemonStatWrapper>
         </S.StatsWrapperColumn>
       </S.StatsWrapper>

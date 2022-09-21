@@ -14,9 +14,8 @@ const ButtonsWrapper = styled.div`
   bottom: 0;
   display: flex;
   justify-content: end;
-  margin-right: 270px;
-  align-items: center;
   width: 100vw;
+  align-items: center;
   height: 50px;
   background-color: rgba(360, 360, 360, 0.4);
 `;

@@ -46,16 +46,10 @@ export default function Arena() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winnerIndex, loserIndex]);
 
-  if (arenaPokemons.length === 0) {
-    return (
-      <>
-        <h1>No pokemon in the arena!</h1>
-      </>
-    );
-  }
-
   return (
     <S.ArenaWrapper>
+      {arenaPokemons.length === 0 && <h1>No pokemon in the arena!</h1>}
+
       {!winnerIndex && (
         <>
           <S.PokemonsWrapper>
@@ -66,17 +60,20 @@ export default function Arena() {
         </>
       )}
 
-      <Link to={"/"}>
-        <S.ClearButton
-          onClick={() => {
-            setArenaPokemons([]);
-          }}
-        >
-          Leave the arena
-        </S.ClearButton>
-      </Link>
-
-      {winner && <S.StyledButton onClick={whoWin}>Let's fight</S.StyledButton>}
+      {winner && (
+        <S.ButtonWrapper>
+          <S.StyledButton onClick={whoWin}>Let's fight</S.StyledButton>
+          <Link to={"/"}>
+            <S.ClearButton
+              onClick={() => {
+                setArenaPokemons([]);
+              }}
+            >
+              Leave the arena
+            </S.ClearButton>
+          </Link>
+        </S.ButtonWrapper>
+      )}
       {winnerIndex && showResults()}
     </S.ArenaWrapper>
   );

@@ -73,16 +73,19 @@ export default function Login() {
           )}
         </S.InputWrapper>
         <S.StyledButton type="submit">Log in</S.StyledButton>
-
         {!logged && clicked && (
           <S.ErrorMessage>Invalid Email/Password combination</S.ErrorMessage>
         )}
+
+        <S.RegisterInfo>
+          Don't have an account?
+          <S.StyledLink to={"/register"}>Register here!</S.StyledLink>
+        </S.RegisterInfo>
       </S.StyledForm>
 
-      <h2>Login</h2>
+      {/* <h2>Login</h2>
       <button onClick={showUsers}>show users</button>
-      <button onClick={showLogged}>show logged</button>
-      <Link to={"/register"}>Register</Link>
+      <button onClick={showLogged}>show logged</button> */}
     </S.FormWrapper>
   );
 }

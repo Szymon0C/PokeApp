@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Switch from "@mui/material/Switch";
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100%;
+  background-color: ${(props) => {
+    return props.theme.backgroundColor;
+  }};
+`;
 const NavWrapper = styled.div`
-  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,4 +45,27 @@ const LogOutButton = styled.button`
 const AccountName = styled.span`
   font-weight: 700;
 `;
-export { NavWrapper, StyledLink, LogDiv, LogOutButton, AccountName, NavButton };
+const StyledSwitch = styled(Switch)`
+.Mui-disabled {
+  .MuiSwitch-thumb {
+    color: #fff;
+    border-radius: 2px;
+  }
+};
+  .Mui-checked {
+    .MuiSwitch-thumb {
+      color: #000;
+      border-radius: 2px;
+  };
+`;
+
+export {
+  NavWrapper,
+  StyledLink,
+  LogDiv,
+  LogOutButton,
+  AccountName,
+  NavButton,
+  StyledSwitch,
+  Wrapper,
+};

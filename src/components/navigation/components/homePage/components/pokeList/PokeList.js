@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import usePage from "../../../../../../customHooks/usePage";
+import usePokemonFetch from "../../../../../../customHooks/usePokemonFetch";
 
 import Pokemon from "./components/pokemon/Pokemon";
 
@@ -13,8 +14,7 @@ export default function PokeList() {
   const { page, nextPage, prevPage } = usePage();
   const { setIndex } = useContext(IndexContext);
   const { newPokemon } = useContext(EditContext);
-
-  const currentPokemons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const { result } = usePokemonFetch(newPokemon.length, page);
 
   const showComponent = (i) => {
     if (location.pathname === "/") {
@@ -51,7 +51,7 @@ export default function PokeList() {
           </S.StyledButton>
         );
       })}
-      {currentPokemons.map((i) => {
+      {result.map((i) => {
         return (
           <S.StyledButton key={i} role="button">
             {showComponent(i)}

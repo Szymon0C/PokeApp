@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import Favourite from "./components/fav/Favourite";
 import Arena from "./components/arena/Arena";
 import RegLog from "./components/regLog/RegLog";
 import Edit from "./components/edit/Edit";
+import Switch from "./components/Switch";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 import Registration from "./components/regLog/registration/Registration";
@@ -17,10 +18,12 @@ import PokemonEdit from "./components/edit/PokemonEdit";
 
 import { IndexContext } from "../../contexts/IndexContext";
 import { UsersContext } from "../../contexts/UsersContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export default function Nav() {
   const { index } = useContext(IndexContext);
   const { logged, logOut } = useContext(UsersContext);
+  const { theme } = useContext(ThemeContext);
   const editComponents = () => {
     if (logged) {
       return (
@@ -31,62 +34,66 @@ export default function Nav() {
       );
     } else return <Route path="/log-reg" element={<RegLog />} />;
   };
+
   return (
-    <BrowserRouter>
-      <S.NavWrapper>
-        <S.StyledLink to={"/"}>
-          <Logo />
-        </S.StyledLink>
+    <S.Wrapper theme={theme}>
+      <BrowserRouter>
+        <S.NavWrapper>
+          <S.StyledLink to={"/"}>
+            <Logo />
+          </S.StyledLink>
+
+          <div>
+            <Link to={"/favourtie"}>
+              <S.NavButton>Favourite</S.NavButton>
+            </Link>
+            <Link to={"/arena"}>
+              <S.NavButton>Arena</S.NavButton>
+            </Link>
+
+            {!logged && (
+              <Link to={"/log-reg"}>
+                <S.NavButton>Login</S.NavButton>
+              </Link>
+            )}
+
+            {logged && (
+              <Link to={"/edit"}>
+                <S.NavButton>Edit</S.NavButton>
+              </Link>
+            )}
+          </div>
+          <div>
+            {logged && (
+              <S.LogDiv>
+                <div>
+                  <span>Zalogowany:</span>
+                  <S.AccountName>{logged.name}</S.AccountName>
+                </div>
+                <S.LogOutButton onClick={logOut}>log out</S.LogOutButton>
+              </S.LogDiv>
+            )}
+
+            {!logged && <div />}
+            <Switch />
+          </div>
+        </S.NavWrapper>
 
         <div>
-          <Link to={"/favourtie"}>
-            <S.NavButton>Favourite</S.NavButton>
-          </Link>
-          <Link to={"/arena"}>
-            <S.NavButton>Arena</S.NavButton>
-          </Link>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/favourtie" element={<Favourite />} />
+            <Route path="/arena" element={<Arena />} />
+            {editComponents()}
+            <Route
+              path="/full-page"
+              element={<FullPagePokemon index={index} />}
+            />
 
-          {!logged && (
-            <Link to={"/log-reg"}>
-              <S.NavButton>Login</S.NavButton>
-            </Link>
-          )}
-
-          {logged && (
-            <Link to={"/edit"}>
-              <S.NavButton>Edit</S.NavButton>
-            </Link>
-          )}
+            <Route path="/register" element={<Registration />} />
+          </Routes>
         </div>
-
-        {logged && (
-          <S.LogDiv>
-            <div>
-              <span>Zalogowany:</span>
-              <S.AccountName>{logged.name}</S.AccountName>
-            </div>
-            <S.LogOutButton onClick={logOut}>log out</S.LogOutButton>
-          </S.LogDiv>
-        )}
-        {!logged && <div />}
-      </S.NavWrapper>
-
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/favourtie" element={<Favourite />} />
-          <Route path="/arena" element={<Arena />} />
-
-          {editComponents()}
-
-          <Route
-            path="/full-page"
-            element={<FullPagePokemon index={index} />}
-          />
-
-          <Route path="/register" element={<Registration />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </S.Wrapper>
   );
 }

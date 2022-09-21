@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FormWrapper = styled.div`
@@ -45,6 +46,21 @@ const StyledButton = styled.button`
   opacity: ${(props) => {
     return props.disabled === true ? 0.35 : 1;
   }};
+  &:hover {
+    border: 2px solid #eb3458;
+    color: #eb3458;
+  }
+`;
+const RegisterInfo = styled.span`
+  margin-top: 20px;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  margin-left: 5px;
+  &:hover {
+    color: #eb3458;
+  }
 `;
 export {
   StyledInput,
@@ -53,4 +69,6 @@ export {
   StyledButton,
   InputWrapper,
   ErrorMessage,
+  RegisterInfo,
+  StyledLink,
 };

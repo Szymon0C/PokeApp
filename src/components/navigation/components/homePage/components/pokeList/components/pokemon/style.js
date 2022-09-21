@@ -9,17 +9,25 @@ const Image = styled.img`
 const PokemonCard = styled.div`
   width: 350px;
   height: 440px;
-  background-color: #d3d3d3;
-  margin 15px 15px 15px 15px;
+  border: ${(props) => {
+    return "2px solid" + props.theme.color;
+  }};
+    margin 15px 15px 15px 15px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
   font-family: "M PLUS Rounded 1c", sans-serif;
-  &:hover{
+
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+
+  &:hover {
     transform: scale(1.1);
-  };
+  }
+
 `;
 
 const PokemonStatWrapper = styled.div`
@@ -38,11 +46,15 @@ const StatsWrapper = styled.div`
   display: flex;
 `;
 const StatName = styled.span`
-  color: #000;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   margin-bottom: 10px;
 `;
 const StatValue = styled.span`
-  color: #808080;
+  color: ${(props) => {
+    return props.theme.color2;
+  }};
   font-size: 14px;
 `;
 const PokemonName = styled.h2`
@@ -53,6 +65,7 @@ const Icon = styled(Fab)`
   left: 280px;
   top: 10px;
 `;
+
 export {
   PokemonCard,
   Image,

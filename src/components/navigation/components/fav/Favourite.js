@@ -8,14 +8,13 @@ import * as S from "./style";
 
 export default function Favourite() {
   const { favPokemons } = useContext(FavouritePokemonContext);
-  if (favPokemons.length === 0) {
-    return <h1>Brak ulubionych Pokemonów</h1>;
-  }
+
   return (
     <S.FavWrapper>
       {favPokemons.map((pokemon) => {
         return <Pokemon key={pokemon} url={pokemon} />;
       })}
+      {favPokemons.length === 0 && <h1>No favorite Pokemon</h1>}
     </S.FavWrapper>
   );
 }
