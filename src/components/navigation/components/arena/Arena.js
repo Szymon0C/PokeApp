@@ -34,7 +34,7 @@ export default function Arena() {
   const showResults = () => {
     return (
       <>
-        <Pokemon url={winnerIndex} />
+        <Pokemon url={`https://pokeapi.co/api/v2/pokemon/${winnerIndex}/`} />
         <h2>is a winner!!!</h2>
       </>
     );
@@ -54,7 +54,12 @@ export default function Arena() {
         <>
           <S.PokemonsWrapper>
             {arenaPokemons.map((pokemon) => {
-              return <Pokemon key={pokemon} url={pokemon} />;
+              return (
+                <Pokemon
+                  key={pokemon}
+                  url={`https://pokeapi.co/api/v2/pokemon/${pokemon}/`}
+                />
+              );
             })}
           </S.PokemonsWrapper>
         </>

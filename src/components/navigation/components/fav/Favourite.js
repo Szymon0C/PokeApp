@@ -12,7 +12,12 @@ export default function Favourite() {
   return (
     <S.FavWrapper>
       {favPokemons.map((pokemon) => {
-        return <Pokemon key={pokemon} url={pokemon} />;
+        return (
+          <Pokemon
+            key={pokemon}
+            url={`https://pokeapi.co/api/v2/pokemon/${pokemon}/`}
+          />
+        );
       })}
       {favPokemons.length === 0 && <h1>No favorite Pokemon</h1>}
     </S.FavWrapper>

@@ -1,68 +1,25 @@
-import { useContext } from "react";
+import axios from "axios";
 
-import usePage from "../../../../../../customHooks/usePage";
-import usePokemonFetch from "../../../../../../customHooks/usePokemonFetch";
+import { useQuery } from "@tanstack/react-query";
 
-import Pokemon from "./components/pokemon/Pokemon";
+import NewPokemon from "./components/test/NewPokemon";
 
-import * as S from "./style";
-import { useLocation } from "react-router-dom";
-import { IndexContext } from "../../../../../../contexts/IndexContext";
-import { EditContext } from "../../../../../../contexts/EditContext";
-export default function PokeList() {
-  const location = useLocation();
-  const { page, nextPage, prevPage } = usePage();
-  const { setIndex } = useContext(IndexContext);
-  const { newPokemon } = useContext(EditContext);
-  const { result } = usePokemonFetch(newPokemon.length, page);
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
-  const showComponent = (i) => {
-    if (location.pathname === "/") {
-      return (
-        <S.StyledLink
-          to={"/full-page"}
-          onClick={() => {
-            setIndex(i + 15 * page);
-          }}
-        >
-          <Pokemon key={i} url={i + 15 * page} />
-        </S.StyledLink>
-      );
-    } else {
-      return (
-        <S.StyledLink
-          to={"/pokemon-edit"}
-          onClick={() => {
-            setIndex(i + 15 * page);
-          }}
-        >
-          <Pokemon key={i} url={i + 15 * page} />
-        </S.StyledLink>
-      );
-    }
-  };
-
-  return (
-    <>
-      {newPokemon.map((pokemon) => {
-        return (
-          <S.StyledButton key={pokemon.name} role="button">
-            <Pokemon edit={pokemon} key={pokemon.name} />
-          </S.StyledButton>
-        );
-      })}
-      {result.map((i) => {
-        return (
-          <S.StyledButton key={i} role="button">
-            {showComponent(i)}
-          </S.StyledButton>
-        );
-      })}
-      <S.ButtonsWrapper>
-        <S.PageButtons onClick={prevPage}>prev page</S.PageButtons>
-        <S.StyledPage>{page + 1}</S.StyledPage>
-        <S.PageButtons onClick={nextPage}>next page</S.PageButtons>
-      </S.ButtonsWrapper>
-    </>
-  );
+export default function PokeList(props) {
+  const { data: data2, status } = useQuery(["t2"], () => {
+    return axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1154`);
+  });
+  if (status === "loading") {
+    return (
+      <Box>
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (status === "error") {
+    return <h2>Error!</h2>;
+  }
+  return <NewPokemon result={data2.data.results} search={props.result} />;
 }

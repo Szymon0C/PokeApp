@@ -8,6 +8,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import EditIcon from "@mui/icons-material/Edit";
 
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
 import { useFormik } from "formik";
 import * as S from "./style";
 import { pokemonEditSchema } from "../../../../schemas";
@@ -18,7 +22,7 @@ export default function PokemonEdit() {
   const [choice, setChoice] = useState(null);
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
   const navigate = useNavigate();
-  const { data } = useQuery([`pokemon${index}`], () => {
+  const { data, status } = useQuery([`edit${index}`], () => {
     if (index) {
       return axios.get(BASE_URL);
     }
@@ -37,9 +41,7 @@ export default function PokemonEdit() {
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       index: index,
-      name:
-        pokemon?.name.substring(0, 1).toUpperCase() +
-        pokemon?.name.substring(1),
+      name: pokemon?.name,
       ability: pokemon?.abilities[0].ability.name,
       height: pokemon?.height,
       weight: pokemon?.weight,
@@ -49,105 +51,119 @@ export default function PokemonEdit() {
     onSubmit,
   });
 
+  if (status === "loading") {
+    return (
+      <Box>
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (status === "error") {
+    return <h2>Error!</h2>;
+  }
+
   return (
-    <S.StyledForm onSubmit={handleSubmit}>
-      <S.Image
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png
-        `}
-        alt="pokemon.jpg"
-      />
+    <>
+      {data && (
+        <S.StyledForm onSubmit={handleSubmit}>
+          <S.Image
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`}
+            alt="pokemon.jpg"
+          />
 
-      <S.InputWrapper>
-        <S.PokemonName
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder={
-            pokemon?.name.substring(0, 1).toUpperCase() +
-            pokemon?.name.substring(1)
-          }
-          id="name"
-        />
-        <EditIcon />
-      </S.InputWrapper>
-
-      <S.StatsRow>
-        <S.StatWrapper>
           <S.InputWrapper>
-            <S.StyledInput
-              placeholder={pokemon?.height}
-              value={values.height}
+            <S.PokemonName
+              value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              id="height"
+              placeholder={
+                pokemon?.name.substring(0, 1).toUpperCase() +
+                pokemon?.name.substring(1)
+              }
+              id="name"
             />
-            <S.GreyIcon fontSize="small" />
+            <EditIcon />
           </S.InputWrapper>
-          <span>Height</span>
-        </S.StatWrapper>
 
-        <S.StatWrapper>
-          <S.InputWrapper>
-            <S.StyledInput
-              placeholder={pokemon?.weight}
-              value={values.weight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              id="weight"
-            />
-            <S.GreyIcon fontSize="small" />
-          </S.InputWrapper>
-          <span>Weigth</span>
-        </S.StatWrapper>
-      </S.StatsRow>
+          <S.StatsRow>
+            <S.StatWrapper>
+              <S.InputWrapper>
+                <S.StyledInput
+                  placeholder={pokemon?.height}
+                  value={values.height}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id="height"
+                />
+                <S.GreyIcon fontSize="small" />
+              </S.InputWrapper>
+              <span>Height</span>
+            </S.StatWrapper>
 
-      <S.StatsRow>
-        <S.StatWrapper>
-          <S.InputWrapper>
-            <S.StyledInput
-              placeholder={pokemon?.base_experience}
-              value={values.experience}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              id="experience"
-            />
-            <S.GreyIcon fontSize="small" />
-          </S.InputWrapper>
-          <span> Experience</span>
-        </S.StatWrapper>
+            <S.StatWrapper>
+              <S.InputWrapper>
+                <S.StyledInput
+                  placeholder={pokemon?.weight}
+                  value={values.weight}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id="weight"
+                />
+                <S.GreyIcon fontSize="small" />
+              </S.InputWrapper>
+              <span>Weigth</span>
+            </S.StatWrapper>
+          </S.StatsRow>
 
-        <S.StatWrapper>
-          <S.InputWrapper>
-            <S.StyledInput
-              placeholder={pokemon?.abilities[0].ability.name}
-              value={values.ability}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              id="ability"
-            />
-            <S.GreyIcon fontSize="small" />
-          </S.InputWrapper>
-          <span>Ability</span>
-        </S.StatWrapper>
-      </S.StatsRow>
-      <S.ButtonWrapper>
-        <S.StyledButton
-          type="submit"
-          onClick={() => {
-            setChoice("edit");
-          }}
-        >
-          save
-        </S.StyledButton>
-        <S.StyledButton
-          type="submit"
-          onClick={() => {
-            setChoice("new");
-          }}
-        >
-          save as new Pokemon
-        </S.StyledButton>
-      </S.ButtonWrapper>
-    </S.StyledForm>
+          <S.StatsRow>
+            <S.StatWrapper>
+              <S.InputWrapper>
+                <S.StyledInput
+                  placeholder={pokemon?.base_experience}
+                  value={values.experience}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id="experience"
+                />
+                <S.GreyIcon fontSize="small" />
+              </S.InputWrapper>
+              <span> Experience</span>
+            </S.StatWrapper>
+
+            <S.StatWrapper>
+              <S.InputWrapper>
+                <S.StyledInput
+                  placeholder={pokemon?.abilities[0].ability.name}
+                  value={values.ability}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id="ability"
+                />
+                <S.GreyIcon fontSize="small" />
+              </S.InputWrapper>
+              <span>Ability</span>
+            </S.StatWrapper>
+          </S.StatsRow>
+          <S.ButtonWrapper>
+            <S.StyledButton
+              type="submit"
+              onClick={() => {
+                setChoice("edit");
+              }}
+            >
+              save
+            </S.StyledButton>
+            <S.StyledButton
+              type="submit"
+              onClick={() => {
+                setChoice("new");
+              }}
+            >
+              save as new Pokemon
+            </S.StyledButton>
+          </S.ButtonWrapper>
+        </S.StyledForm>
+      )}
+    </>
   );
 }

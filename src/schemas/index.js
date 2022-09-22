@@ -10,7 +10,7 @@ export const registerSchema = yup.object().shape({
     .string()
     .matches(passwordRules, {
       message:
-        "The password must match: At least 8 characters, at least 1 uppercase letter,  at least 1 lowercase letter, and 1 number",
+        "The password must match: At least 8 characters, at least 1 uppercase letter, at least 1 special and 1 number",
     })
     .required("Required"),
   confirmPassword: yup

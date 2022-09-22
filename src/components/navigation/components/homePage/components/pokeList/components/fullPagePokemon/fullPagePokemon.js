@@ -12,6 +12,8 @@ import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 import * as S from "./style";
 
@@ -21,7 +23,7 @@ export default function FullPagePokemon() {
 
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
 
-  const { data } = useQuery([`pokemon${index}`], () => {
+  const { data, status } = useQuery([`pokemon${index}`], () => {
     if (index) {
       return axios.get(BASE_URL);
     }
@@ -72,7 +74,7 @@ export default function FullPagePokemon() {
   const pokemon = data?.data;
 
   const pokeInfo = {
-    image: index,
+    image: pokemon?.sprites.front_default,
     name:
       pokemon?.name.substring(0, 1).toUpperCase() + pokemon?.name.substring(1),
     height: pokemon?.height,
@@ -89,16 +91,21 @@ export default function FullPagePokemon() {
       pokeInfo.ability = pokemon.ability;
     }
   });
-
+  if (status === "loading") {
+    return (
+      <Box>
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (status === "error") {
+    return <h2>Error!</h2>;
+  }
   return (
     <S.Container>
       {index && (
         <S.PokemonWrapper>
-          <S.Image
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png
-        `}
-            alt="pokemon.jpg"
-          />
+          <S.Image src={pokeInfo.image} alt="pokemon.jpg" />
           <S.Pokemon>
             <S.PokeHeading>
               <h1>{pokeInfo.name}</h1>

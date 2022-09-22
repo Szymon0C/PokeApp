@@ -46,17 +46,17 @@ const AccountName = styled.span`
   font-weight: 700;
 `;
 const StyledSwitch = styled(Switch)`
-.Mui-disabled {
-  .MuiSwitch-thumb {
-    color: #fff;
-    border-radius: 2px;
+  .Mui-disabled {
+    .MuiSwitch-thumb {
+      color: #fff;
+    }
   }
-};
+  ,
   .Mui-checked {
     .MuiSwitch-thumb {
       color: #000;
-      border-radius: 2px;
-  };
+    }
+  }
 `;
 
 export {

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -17,26 +17,36 @@ import axios from "axios";
 import * as S from "./style";
 
 export default function Pokemon(prop) {
-  const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${
-    prop.edit?.index || prop.url
-  }`;
+  const BASE_URL = prop.url;
+  const [pokeInfo, setPokeInfo] = useState(null);
   const { status, data } = useQuery([`pokemon${prop.url}`], () => {
     return axios.get(BASE_URL);
   });
-  //
-  // fetch(" https://pokeapi.co/api/v2/pokemon/?limit=1154")
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     console.log(res);
-  //   });
 
-  //
   const { win, lose } = useContext(ArenaContext);
   const { updatedPokemon, removePokemon } = useContext(EditContext);
   const { theme } = useContext(ThemeContext);
 
-  const { winResult } = useFightResult(prop.url, win, lose);
-  const pokemon = data?.data;
+  const { winResult } = useFightResult(
+    parseInt(prop.url.substring(34)),
+    win,
+    lose
+  );
+  // const pokemon = data?.data;
+
+  useEffect(() => {
+    const pokemon = data?.data;
+    setPokeInfo({
+      image: pokemon?.sprites.front_default,
+      name:
+        pokemon?.name.substring(0, 1).toUpperCase() +
+        pokemon?.name.substring(1),
+      height: pokemon?.height,
+      weight: pokemon?.weight,
+      experience: pokemon?.base_experience + winResult * 10,
+      ability: pokemon?.abilities[0].ability.name,
+    });
+  }, [data]);
   if (status === "loading") {
     return (
       <Box>
@@ -47,79 +57,63 @@ export default function Pokemon(prop) {
   if (status === "error") {
     return <h2>Error!</h2>;
   }
-
-  const pokeInfo = {
-    image: prop.edit?.index || prop.url,
-    name:
-      prop.edit?.name ||
-      pokemon?.name.substring(0, 1).toUpperCase() + pokemon?.name.substring(1),
-    height: prop.edit?.height || pokemon?.height,
-    weight: prop.edit?.weight || pokemon?.weight,
-    experience:
-      prop.edit?.experience + winResult * 10 ||
-      pokemon?.base_experience + winResult * 10,
-    ability: prop.edit?.ability || pokemon?.abilities[0].ability.name,
-  };
-
-  updatedPokemon.map((pokemon) => {
-    if (prop.url === pokemon.index) {
-      pokeInfo.name = pokemon.name;
-      pokeInfo.height = pokemon.height;
-      pokeInfo.weight = pokemon.weight;
-      pokeInfo.experience = pokemon.experience + winResult * 10;
-      pokeInfo.ability = pokemon.ability;
-    }
-  });
+  // updatedPokemon.map((pokemon) => {
+  //   if (prop.url === pokemon.index) {
+  //     pokeInfo.name = pokemon.name;
+  //     pokeInfo.height = pokemon.height;
+  //     pokeInfo.weight = pokemon.weight;
+  //     pokeInfo.experience = pokemon.experience + winResult * 10;
+  //     pokeInfo.ability = pokemon.ability;
+  //   }
+  // });
 
   return (
-    <S.PokemonCard theme={theme}>
-      <div style={{ display: "flex" }}>
-        {prop.edit?.index && (
-          <S.Icon
-            size="small"
-            onClick={() => {
-              removePokemon(pokeInfo);
-            }}
-          >
-            <ClearIcon />
-          </S.Icon>
-        )}
+    <>
+      {pokeInfo && (
+        <S.PokemonCard theme={theme}>
+          <div style={{ display: "flex" }}>
+            {/* {prop.edit?.index && (
+              <S.Icon
+                size="small"
+                onClick={() => {
+                  removePokemon(pokeInfo);
+                }}
+              >
+                <ClearIcon />
+              </S.Icon>
+            )} */}
 
-        <S.Image
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-            prop.edit?.index || prop.url
-          }.png
-        `}
-          alt="pokemon.jpg"
-        />
-      </div>
+            <S.Image src={pokeInfo.image} alt="pokemon.jpg" />
+          </div>
 
-      <S.PokemonName>{pokeInfo.name}</S.PokemonName>
+          <S.PokemonName>{pokeInfo.name}</S.PokemonName>
 
-      <S.StatsWrapper>
-        <S.StatsWrapperColumn>
-          <S.PokemonStatWrapper>
-            <S.StatValue theme={theme}>{pokeInfo.height}</S.StatValue>
-            <S.StatName theme={theme}>Height</S.StatName>
-          </S.PokemonStatWrapper>
+          <S.StatsWrapper>
+            <S.StatsWrapperColumn>
+              <S.PokemonStatWrapper>
+                <S.StatValue theme={theme}>{pokeInfo.height}</S.StatValue>
+                <S.StatName theme={theme}>Height</S.StatName>
+              </S.PokemonStatWrapper>
 
-          <S.PokemonStatWrapper>
-            <S.StatValue theme={theme}>{pokeInfo.weight}</S.StatValue>
-            <S.StatName theme={theme}>Weigth</S.StatName>
-          </S.PokemonStatWrapper>
-        </S.StatsWrapperColumn>
+              <S.PokemonStatWrapper>
+                <S.StatValue theme={theme}>{pokeInfo.weight}</S.StatValue>
+                <S.StatName theme={theme}>Weigth</S.StatName>
+              </S.PokemonStatWrapper>
+            </S.StatsWrapperColumn>
 
-        <S.StatsWrapperColumn>
-          <S.PokemonStatWrapper>
-            <S.StatValue theme={theme}>{pokeInfo.experience}</S.StatValue>
-            <S.StatName theme={theme}>Base experience</S.StatName>
-          </S.PokemonStatWrapper>
-          <S.PokemonStatWrapper>
-            <S.StatValue theme={theme}>{pokeInfo.ability}</S.StatValue>
-            <S.StatName theme={theme}>Ability</S.StatName>
-          </S.PokemonStatWrapper>
-        </S.StatsWrapperColumn>
-      </S.StatsWrapper>
-    </S.PokemonCard>
+            <S.StatsWrapperColumn>
+              <S.PokemonStatWrapper>
+                <S.StatValue theme={theme}>{pokeInfo.experience}</S.StatValue>
+                <S.StatName theme={theme}>Base experience</S.StatName>
+              </S.PokemonStatWrapper>
+              <S.PokemonStatWrapper>
+                <S.StatValue theme={theme}>{pokeInfo.ability}</S.StatValue>
+                <S.StatName theme={theme}>Ability</S.StatName>
+              </S.PokemonStatWrapper>
+            </S.StatsWrapperColumn>
+          </S.StatsWrapper>
+        </S.PokemonCard>
+      )}
+    </>
   );
 }

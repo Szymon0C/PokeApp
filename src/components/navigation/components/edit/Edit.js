@@ -7,7 +7,7 @@ export default function Edit() {
     <>
       <h2>Choose Pokemon to edit</h2>
       <S.PokeListWrapper>
-        <PokeList />;
+        <PokeList result="" />
       </S.PokeListWrapper>
     </>
   );
