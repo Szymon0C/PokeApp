@@ -86,7 +86,7 @@ export default function Pokemon(prop) {
             <S.Image src={pokeInfo.image} alt="pokemon.jpg" />
           </div>
 
-          <S.PokemonName>{pokeInfo.name}</S.PokemonName>
+          <S.PokemonName theme={theme}>{pokeInfo.name}</S.PokemonName>
 
           <S.StatsWrapper>
             <S.StatsWrapperColumn>

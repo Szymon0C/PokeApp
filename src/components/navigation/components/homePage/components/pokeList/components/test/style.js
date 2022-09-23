@@ -14,16 +14,20 @@ const ButtonsWrapper = styled.div`
   width: 100vw;
   align-items: center;
   height: 50px;
-  background-color: rgba(360, 360, 360, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 const PageButtons = styled.button`
   background: none;
-  border: 1px solid #eb3458;
+  border: ${(props) => {
+    return "1px solid" + props.theme.color2;
+  }};
+  color: ${(props) => {
+    return props.theme.color2;
+  }};
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #eb3458;
   height: 30px;
   width: 100px;
   margin-left: 10px;

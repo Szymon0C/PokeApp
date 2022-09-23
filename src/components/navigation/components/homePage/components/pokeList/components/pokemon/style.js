@@ -58,7 +58,9 @@ const StatValue = styled.span`
   font-size: 14px;
 `;
 const PokemonName = styled.h2`
-  color: #000;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   margin-bottom: 20px;
 `;
 const Icon = styled(Fab)`

@@ -6,11 +6,12 @@ import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch
 import usePage from "../../../../../../../../customHooks/usePage";
 
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
+import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
 
 import { useLocation } from "react-router-dom";
 export default function NewPokemon(props) {
   const search = props.search;
-
+  const { theme } = useContext(ThemeContext);
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
   });
@@ -58,9 +59,13 @@ export default function NewPokemon(props) {
         })}
       </S.Wrapper>
       <S.ButtonsWrapper>
-        <S.PageButtons onClick={prevPage}>prev page</S.PageButtons>
+        <S.PageButtons theme={theme} onClick={prevPage}>
+          prev page
+        </S.PageButtons>
         <S.StyledPage>{page + 1}</S.StyledPage>
-        <S.PageButtons onClick={nextPage}>next</S.PageButtons>
+        <S.PageButtons theme={theme} onClick={nextPage}>
+          next
+        </S.PageButtons>
       </S.ButtonsWrapper>
     </>
   );

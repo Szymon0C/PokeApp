@@ -8,13 +8,13 @@ export const ThemeProvider = ({ children }) => {
       name: "light",
       backgroundColor: "#fdeaee",
       color: "#051713",
-      color2: "#13c09e",
+      color2: "#eb3458",
     },
     dark: {
       name: "dark",
-      backgroundColor: "#2f0a11",
-      color: "#f9c2cc",
-      color2: "#fdeaee",
+      backgroundColor: "#121212",
+      color: "#3700b3",
+      color2: "#bb86fc",
     },
   });
   const [theme, setTheme] = useState(choice.light);

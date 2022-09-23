@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
@@ -45,21 +45,21 @@ export default function Nav() {
 
           <div>
             <Link to={"/favourtie"}>
-              <S.NavButton>Favourite</S.NavButton>
+              <S.NavButton theme={theme}>Favourite</S.NavButton>
             </Link>
             <Link to={"/arena"}>
-              <S.NavButton>Arena</S.NavButton>
+              <S.NavButton theme={theme}>Arena</S.NavButton>
             </Link>
 
             {!logged && (
               <Link to={"/log-reg"}>
-                <S.NavButton>Login</S.NavButton>
+                <S.NavButton theme={theme}>Login</S.NavButton>
               </Link>
             )}
 
             {logged && (
               <Link to={"/edit"}>
-                <S.NavButton>Edit</S.NavButton>
+                <S.NavButton theme={theme}>Edit</S.NavButton>
               </Link>
             )}
           </div>
