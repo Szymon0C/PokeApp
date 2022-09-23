@@ -53,9 +53,10 @@ export default function NewPokemon(props) {
   return (
     <>
       <S.Wrapper>
-        {newPokemon.map((i) => {
-          return <Pokemon key={i.name} new={i} />;
-        })}
+        {page === 0 &&
+          newPokemon.map((i) => {
+            return <Pokemon key={i.name} new={i} />;
+          })}
         {result.map((i) => {
           return (
             <S.StyledButton key={i} role="button">

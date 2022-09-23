@@ -1,8 +1,9 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  const date = Date();
   const [choice] = useState({
     light: {
       name: "light",
@@ -18,6 +19,15 @@ export const ThemeProvider = ({ children }) => {
     },
   });
   const [theme, setTheme] = useState(choice.light);
+  useEffect(() => {
+    if (
+      parseFloat(
+        `${parseInt(date.substring(15))}.${parseInt(date.substring(19))}`
+      ) > 22
+    ) {
+      setTheme(choice.dark);
+    }
+  }, []);
 
   const changeTheme = () => {
     setTheme(theme === choice.light ? choice.dark : choice.light);

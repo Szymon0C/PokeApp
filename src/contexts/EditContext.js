@@ -6,7 +6,9 @@ export const EditProvider = ({ children }) => {
   const [newPokemon, setNewPokemon] = useState([]);
   const [updatedPokemon, setUpdatedPokemon] = useState([]);
   const addNewPokemon = (pokemon) => {
-    setNewPokemon([...newPokemon, pokemon]);
+    if (newPokemon.length < 15) {
+      setNewPokemon([...newPokemon, pokemon]);
+    }
   };
   const updatePokemon = (pokemon) => {
     setUpdatedPokemon([...updatedPokemon, pokemon]);
