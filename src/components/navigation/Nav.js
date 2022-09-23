@@ -14,7 +14,7 @@ import Switch from "./components/Switch";
 
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
 import Registration from "./components/regLog/registration/Registration";
-import PokemonEdit from "./components/edit/PokemonEdit";
+import InfoTransfer from "./components/edit/InfoTransfer";
 
 import { IndexContext } from "../../contexts/IndexContext";
 import { UsersContext } from "../../contexts/UsersContext";
@@ -29,7 +29,7 @@ export default function Nav() {
       return (
         <>
           <Route path="/edit" element={<Edit />} />
-          <Route path="/pokemon-edit" element={<PokemonEdit />} />
+          <Route path="/pokemon-edit" element={<InfoTransfer />} />
         </>
       );
     } else return <Route path="/log-reg" element={<RegLog />} />;

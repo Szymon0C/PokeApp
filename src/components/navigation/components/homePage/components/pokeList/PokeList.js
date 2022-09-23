@@ -4,10 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 
 import NewPokemon from "./components/test/NewPokemon";
 
+import { EditContext } from "../../../../../../contexts/EditContext";
+import { useContext } from "react";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 export default function PokeList(props) {
+  const { newPokemon, updatedPokemon } = useContext(EditContext);
   const { data: data2, status } = useQuery(["t2"], () => {
     return axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1154`);
   });
@@ -21,5 +25,23 @@ export default function PokeList(props) {
   if (status === "error") {
     return <h2>Error!</h2>;
   }
-  return <NewPokemon result={data2.data.results} search={props.result} />;
+  return (
+    <>
+      <button
+        onClick={() => {
+          console.log(updatedPokemon);
+        }}
+      >
+        showEdit
+      </button>
+      <button
+        onClick={() => {
+          console.log(newPokemon);
+        }}
+      >
+        showNew
+      </button>
+      <NewPokemon result={data2.data.results} search={props.result} />
+    </>
+  );
 }
