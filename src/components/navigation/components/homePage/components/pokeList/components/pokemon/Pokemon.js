@@ -28,35 +28,38 @@ export default function Pokemon(prop) {
   const { theme } = useContext(ThemeContext);
 
   const { winResult } = useFightResult(
-    parseInt(prop.url.substring(34)),
+    parseInt(prop.url?.substring(34)),
     win,
     lose
   );
-  // const pokemon = data?.data;
 
   useEffect(() => {
     const pokemon = data?.data;
     setPokeInfo({
-      image: pokemon?.sprites.front_default,
+      image: pokemon?.sprites.front_default || prop.new?.image,
       name:
         pokemon?.name.substring(0, 1).toUpperCase() +
-        pokemon?.name.substring(1),
-      height: pokemon?.height,
-      weight: pokemon?.weight,
-      experience: pokemon?.base_experience + winResult * 10,
-      ability: pokemon?.abilities[0].ability.name,
+          pokemon?.name.substring(1) || prop.new?.name,
+      height: pokemon?.height || prop.new?.height,
+      weight: pokemon?.weight || prop.new?.weight,
+      experience:
+        pokemon?.base_experience + winResult * 10 || prop.new?.experience,
+      ability: pokemon?.abilities[0].ability.name || prop.new?.ability,
     });
   }, [data]);
-  if (status === "loading") {
-    return (
-      <Box>
-        <CircularProgress />
-      </Box>
-    );
+  if (!prop.new) {
+    if (status === "loading") {
+      return (
+        <Box>
+          <CircularProgress />
+        </Box>
+      );
+    }
+    if (status === "error") {
+      return <h2>Error!</h2>;
+    }
   }
-  if (status === "error") {
-    return <h2>Error!</h2>;
-  }
+
   // updatedPokemon.map((pokemon) => {
   //   if (prop.url === pokemon.index) {
   //     pokeInfo.name = pokemon.name;
@@ -72,7 +75,7 @@ export default function Pokemon(prop) {
       {pokeInfo && (
         <S.PokemonCard theme={theme}>
           <div style={{ display: "flex" }}>
-            {/* {prop.edit?.index && (
+            {prop.new?.index && (
               <S.Icon
                 size="small"
                 onClick={() => {
@@ -81,7 +84,7 @@ export default function Pokemon(prop) {
               >
                 <ClearIcon />
               </S.Icon>
-            )} */}
+            )}
 
             <S.Image src={pokeInfo.image} alt="pokemon.jpg" />
           </div>

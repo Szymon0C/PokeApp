@@ -10,6 +10,7 @@ import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { FavouritePokemonContext } from "../../../../../../../../contexts/FavouritePokemonsContext";
 import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
+import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -20,6 +21,7 @@ import * as S from "./style";
 export default function FullPagePokemon() {
   const { index, clearIndex } = useContext(IndexContext);
   const { updatedPokemon } = useContext(EditContext);
+  const { theme } = useContext(ThemeContext);
 
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
 
@@ -108,7 +110,7 @@ export default function FullPagePokemon() {
           <S.Image src={pokeInfo.image} alt="pokemon.jpg" />
           <S.Pokemon>
             <S.PokeHeading>
-              <h1>{pokeInfo.name}</h1>
+              <S.PokemonName theme={theme}>{pokeInfo.name}</S.PokemonName>
 
               <S.FavIcon
                 aria-label="like"
@@ -118,7 +120,7 @@ export default function FullPagePokemon() {
                 <FavoriteIcon />
               </S.FavIcon>
               <S.ArenaIcon color={arenaColor} onClick={arenaPokemonAction}>
-                <S.FightIcon src="/fight.svg" />
+                <S.FightIcon src="/fight.svg" color={arenaColor} />
               </S.ArenaIcon>
             </S.PokeHeading>
 
@@ -126,34 +128,34 @@ export default function FullPagePokemon() {
               <S.PokeStatsColumn>
                 <S.PokeStatsWrapper>
                   <S.StatValue>{pokeInfo.height}</S.StatValue>
-                  <span>Height</span>
+                  <S.StatName theme={theme}>Height</S.StatName>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
                   <S.StatValue>{pokeInfo.weight}</S.StatValue>
-                  <span>Weigth</span>
+                  <S.StatName theme={theme}>Weigth</S.StatName>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
                   <S.StatValue>{winResult}</S.StatValue>
-                  <span>Wins</span>
+                  <S.StatName theme={theme}>Wins</S.StatName>
                 </S.PokeStatsWrapper>
               </S.PokeStatsColumn>
 
               <S.PokeStatsColumn>
                 <S.PokeStatsWrapper>
                   <S.StatValue>{pokeInfo.experience}</S.StatValue>
-                  <span>Base experience</span>
+                  <S.StatName theme={theme}>Base experience</S.StatName>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
                   <S.StatValue>{pokeInfo.ability}</S.StatValue>
-                  <span>Ability</span>
+                  <S.StatName theme={theme}>Ability</S.StatName>
                 </S.PokeStatsWrapper>
 
                 <S.PokeStatsWrapper>
                   <S.StatValue>{loseResult}</S.StatValue>
-                  <span>Loses</span>
+                  <S.StatName theme={theme}>Loses</S.StatName>
                 </S.PokeStatsWrapper>
               </S.PokeStatsColumn>
             </S.PokemonStats>
@@ -162,7 +164,7 @@ export default function FullPagePokemon() {
       )}
 
       <S.StyledLink to={"/"} onClick={clearIndex}>
-        <S.StyledButton>Strona Główna</S.StyledButton>
+        <S.StyledButton theme={theme}>Strona Główna</S.StyledButton>
       </S.StyledLink>
     </S.Container>
   );

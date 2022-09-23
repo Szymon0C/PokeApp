@@ -53,9 +53,16 @@ const LogOutButton = styled.button`
   color: #eb3458;
 `;
 const AccountName = styled.span`
-  font-weight: 700;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
+  font-weight: 800;
 `;
-
+const LogMessage = styled.span`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
+`;
 export {
   NavWrapper,
   StyledLink,
@@ -64,4 +71,5 @@ export {
   AccountName,
   NavButton,
   Wrapper,
+  LogMessage,
 };

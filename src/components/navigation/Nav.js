@@ -67,8 +67,8 @@ export default function Nav() {
             {logged && (
               <S.LogDiv>
                 <div>
-                  <span>Zalogowany:</span>
-                  <S.AccountName>{logged.name}</S.AccountName>
+                  <S.LogMessage theme={theme}>Zalogowany:</S.LogMessage>
+                  <S.AccountName theme={theme}>{logged.name}</S.AccountName>
                 </div>
                 <S.LogOutButton onClick={logOut}>log out</S.LogOutButton>
               </S.LogDiv>

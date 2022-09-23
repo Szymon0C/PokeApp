@@ -34,7 +34,9 @@ const PageButtons = styled.button`
   margin-right: 10px;
 `;
 const StyledPage = styled.span`
-  color: #eb3458;
+  color: ${(props) => {
+    return props.theme.color2;
+  }};
 `;
 const StyledButton = styled.div`
   border: none;

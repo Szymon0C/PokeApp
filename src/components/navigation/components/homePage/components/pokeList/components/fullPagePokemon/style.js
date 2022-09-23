@@ -13,7 +13,9 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled.button`
-  border: 1px solid #eb3458;
+  border: ${(props) => {
+    return "1px solid" + props.theme.color2;
+  }};
   border-radius: 5px;
   background: none;
   display: flex;
@@ -22,7 +24,9 @@ const StyledButton = styled.button`
   width: 95vw;
   height: 50px;
   margin-top: 20px;
-  color: #eb3458;
+  color: ${(props) => {
+    return props.theme.color2;
+  }};
 `;
 const PokemonWrapper = styled.div`
   display: flex;
@@ -40,6 +44,11 @@ const Pokemon = styled.div`
 `;
 const PokemonStats = styled.div`
   display: flex;
+`;
+const PokemonName = styled.h1`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
 `;
 const PokeStatsWrapper = styled.div`
   display: flex;
@@ -74,9 +83,19 @@ const StatValue = styled.span`
   color: #808080;
   font-size: 14px;
 `;
+const StatName = styled.span`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
+`;
 const FightIcon = styled.img`
   width: 18px;
   height: 18px;
+
+  -webkit-filter: invert(100%); /* Safari 6.0 - 9.0 */
+  filter: ${(props) => {
+    return props.color === "default" ? "invert(0%)" : "invert(100%)";
+  }};
 `;
 export {
   Container,
@@ -84,6 +103,7 @@ export {
   PokemonWrapper,
   Image,
   Pokemon,
+  PokemonName,
   PokemonStats,
   PokeStatsColumn,
   PokeStatsWrapper,
@@ -91,6 +111,7 @@ export {
   FavIcon,
   StyledLink,
   StatValue,
+  StatName,
   FightIcon,
   ArenaIcon,
 };

@@ -5,22 +5,28 @@ import EditIcon from "@mui/icons-material/Edit";
 const StyledInput = styled.input`
   height: 20px;
   border: none;
+  background: ${(props) => {
+    return props.theme.backgroundColor;
+  }};
+  color: #808080;
   text-align: center;
   ::placeholder {
-    color: #808080;
     font-size: 14px;
   }
 `;
 const PokemonName = styled.input`
+  background: ${(props) => {
+    return props.theme.backgroundColor;
+  }};
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   border: none;
   height: 50px;
   width: 300px;
   text-align: center;
-  color: #000;
+
   font-size: 32px;
-  ::placeholder {
-    color: #000;
-  }
 `;
 const Image = styled.img`
   width: 270px;
@@ -53,23 +59,42 @@ const GreyIcon = styled(EditIcon)`
   position: relative;
   right: 20px;
 `;
+const NameIcon = styled(EditIcon)`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
+`;
 const StyledButton = styled.button`
   width: 160px;
   height: 50px;
   background: none;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: ${(props) => {
+    return "2px solid" + props.theme.color;
+  }};
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   &:hover {
     transform: scale(1.1);
-    border: 1px solid #eb3458;
-    color: #eb3458;
+    border: ${(props) => {
+      return "2px solid" + props.theme.color2;
+    }};
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
   }
 `;
 const ButtonWrapper = styled.div`
   width: 30vw;
   display: flex;
   justify-content: space-evenly;
+`;
+const StatName = styled.span`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
 `;
 export {
   StyledInput,
@@ -80,6 +105,8 @@ export {
   StatsRow,
   StyledForm,
   GreyIcon,
+  NameIcon,
   StyledButton,
   ButtonWrapper,
+  StatName,
 };

@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 
 import { UsersContext } from "../../../../../contexts/UsersContext";
+import { ThemeContext } from "../../../../../contexts/ThemeContext";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
 
@@ -13,9 +14,8 @@ export default function Login() {
   const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
   const { users, logIn, logged } = useContext(UsersContext);
-  const showLogged = () => {
-    console.log(logged);
-  };
+  const { theme } = useContext(ThemeContext);
+
   const onSubmit = (values) => {
     logIn(values);
     setClicked(true);
@@ -43,8 +43,11 @@ export default function Login() {
     <S.FormWrapper>
       <S.StyledForm onSubmit={handleSubmit}>
         <S.InputWrapper>
-          <label htmlFor="email">email</label>
+          <S.StyledLabel theme={theme} htmlFor="email">
+            email
+          </S.StyledLabel>
           <S.StyledInput
+            theme={theme}
             error={errors.email && touched.email ? true : false}
             type="email"
             value={values.email}
@@ -58,8 +61,11 @@ export default function Login() {
           )}
         </S.InputWrapper>
         <S.InputWrapper>
-          <label htmlFor="password">password</label>
+          <S.StyledLabel theme={theme} htmlFor="password">
+            password
+          </S.StyledLabel>
           <S.StyledInput
+            theme={theme}
             error={errors.password && touched.password ? true : false}
             type="password"
             value={values.password}
@@ -72,20 +78,20 @@ export default function Login() {
             <S.ErrorMessage>{errors.password}</S.ErrorMessage>
           )}
         </S.InputWrapper>
-        <S.StyledButton type="submit">Log in</S.StyledButton>
+        <S.StyledButton theme={theme} type="submit">
+          Log in
+        </S.StyledButton>
         {!logged && clicked && (
           <S.ErrorMessage>Invalid Email/Password combination</S.ErrorMessage>
         )}
 
-        <S.RegisterInfo>
+        <S.RegisterInfo theme={theme}>
           Don't have an account?
-          <S.StyledLink to={"/register"}>Register here!</S.StyledLink>
+          <S.StyledLink theme={theme} to={"/register"}>
+            Register here!
+          </S.StyledLink>
         </S.RegisterInfo>
       </S.StyledForm>
-
-      {/* <h2>Login</h2>
-      <button onClick={showUsers}>show users</button>
-      <button onClick={showLogged}>show logged</button> */}
     </S.FormWrapper>
   );
 }

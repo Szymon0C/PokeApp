@@ -2,8 +2,7 @@ import { useContext, useState } from "react";
 
 import { IndexContext } from "../../../../../contexts/IndexContext";
 import { EditContext } from "../../../../../contexts/EditContext";
-
-import EditIcon from "@mui/icons-material/Edit";
+import { ThemeContext } from "../../../../../contexts/ThemeContext";
 
 import { useFormik } from "formik";
 import * as S from "./style";
@@ -11,7 +10,7 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { pokemonEditSchema } from "../../../../../schemas";
 export default function PokemonEdit({ value }) {
-  console.log(value);
+  const { theme } = useContext(ThemeContext);
   const { index } = useContext(IndexContext);
   const { addNewPokemon, updatePokemon } = useContext(EditContext);
   const [choice, setChoice] = useState(null);
@@ -30,6 +29,7 @@ export default function PokemonEdit({ value }) {
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       index: index,
+      image: value.sprites.front_default,
       name: value.name.substring(0, 1).toUpperCase() + value.name.substring(1),
       ability: value.abilities[0].ability.name,
       height: value.height,
@@ -49,6 +49,7 @@ export default function PokemonEdit({ value }) {
 
       <S.InputWrapper>
         <S.PokemonName
+          theme={theme}
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -57,13 +58,14 @@ export default function PokemonEdit({ value }) {
           }
           id="name"
         />
-        <EditIcon />
+        <S.NameIcon theme={theme} />
       </S.InputWrapper>
 
       <S.StatsRow>
         <S.StatWrapper>
           <S.InputWrapper>
             <S.StyledInput
+              theme={theme}
               placeholder={value.height}
               value={values.height}
               onChange={handleChange}
@@ -72,12 +74,13 @@ export default function PokemonEdit({ value }) {
             />
             <S.GreyIcon fontSize="small" />
           </S.InputWrapper>
-          <span>Height</span>
+          <S.StatName theme={theme}>Height</S.StatName>
         </S.StatWrapper>
 
         <S.StatWrapper>
           <S.InputWrapper>
             <S.StyledInput
+              theme={theme}
               placeholder={value.weight}
               value={values.weight}
               onChange={handleChange}
@@ -86,7 +89,7 @@ export default function PokemonEdit({ value }) {
             />
             <S.GreyIcon fontSize="small" />
           </S.InputWrapper>
-          <span>Weigth</span>
+          <S.StatName theme={theme}>Weigth</S.StatName>
         </S.StatWrapper>
       </S.StatsRow>
 
@@ -94,6 +97,7 @@ export default function PokemonEdit({ value }) {
         <S.StatWrapper>
           <S.InputWrapper>
             <S.StyledInput
+              theme={theme}
               placeholder={value.base_experience}
               value={values.experience}
               onChange={handleChange}
@@ -102,12 +106,13 @@ export default function PokemonEdit({ value }) {
             />
             <S.GreyIcon fontSize="small" />
           </S.InputWrapper>
-          <span> Experience</span>
+          <S.StatName theme={theme}> Experience</S.StatName>
         </S.StatWrapper>
 
         <S.StatWrapper>
           <S.InputWrapper>
             <S.StyledInput
+              theme={theme}
               placeholder={value.abilities[0].ability.name}
               value={values.ability}
               onChange={handleChange}
@@ -116,11 +121,12 @@ export default function PokemonEdit({ value }) {
             />
             <S.GreyIcon fontSize="small" />
           </S.InputWrapper>
-          <span>Ability</span>
+          <S.StatName theme={theme}>Ability</S.StatName>
         </S.StatWrapper>
       </S.StatsRow>
       <S.ButtonWrapper>
         <S.StyledButton
+          theme={theme}
           type="submit"
           onClick={() => {
             setChoice("edit");
@@ -129,6 +135,7 @@ export default function PokemonEdit({ value }) {
           save
         </S.StyledButton>
         <S.StyledButton
+          theme={theme}
           type="submit"
           onClick={() => {
             setChoice("new");

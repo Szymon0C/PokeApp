@@ -23,8 +23,13 @@ const StyledInput = styled.input`
   width: 40vw;
   height: 40px;
   margin: 10px 0 10px 0;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   border: ${(props) => {
-    return props.error === true ? " 2px solid red" : "2px solid black";
+    return props.error === true
+      ? " 2px solid red"
+      : "2px solid" + props.theme.color;
   }};
   &:focus {
     outline: none;
@@ -38,29 +43,50 @@ const ErrorMessage = styled.span`
 const StyledButton = styled.button`
   box-sizing: content-box;
   background: none;
-  border: 2px solid black;
+  border: ${(props) => {
+    return "2px solid" + props.theme.color;
+  }};
   border-radius: 5px;
   width: 39.5vw;
   height: 40px;
   margin-top: 20px;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   opacity: ${(props) => {
     return props.disabled === true ? 0.35 : 1;
   }};
   &:hover {
-    border: 2px solid #eb3458;
-    color: #eb3458;
+    border: ${(props) => {
+      return "2px solid" + props.theme.color2;
+    }};
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
   }
 `;
 const RegisterInfo = styled.span`
   margin-top: 20px;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   margin-left: 5px;
   &:hover {
-    color: #eb3458;
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
   }
+`;
+const StyledLabel = styled.label`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
 `;
 export {
   StyledInput,
@@ -71,4 +97,5 @@ export {
   ErrorMessage,
   RegisterInfo,
   StyledLink,
+  StyledLabel,
 };

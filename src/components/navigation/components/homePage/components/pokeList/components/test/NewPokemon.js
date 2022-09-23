@@ -3,23 +3,27 @@ import Pokemon from "../pokemon/Pokemon";
 
 import * as S from "./style";
 import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch";
-import usePage from "../../../../../../../../customHooks/usePage";
 
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
+import { EditContext } from "../../../../../../../../contexts/EditContext";
 
 import { useLocation } from "react-router-dom";
 export default function NewPokemon(props) {
   const search = props.search;
   const { theme } = useContext(ThemeContext);
+  const { newPokemon, updatedPokemon } = useContext(EditContext);
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
   });
 
   const location = useLocation();
   const { setIndex } = useContext(IndexContext);
-  const { page, nextPage, prevPage } = usePage();
-  const { result } = usePokemonFetch(finalPokemons.length, 0, page);
+
+  const { result, page, allPages, nextPage, prevPage } = usePokemonFetch(
+    finalPokemons.length,
+    newPokemon.length
+  );
 
   const showComponent = (index) => {
     if (location.pathname === "/") {
@@ -49,10 +53,12 @@ export default function NewPokemon(props) {
   return (
     <>
       <S.Wrapper>
+        {newPokemon.map((i) => {
+          return <Pokemon key={i.name} new={i} />;
+        })}
         {result.map((i) => {
           return (
             <S.StyledButton key={i} role="button">
-              {/* {showComponent(parseInt(finalPokemons[i].url))} */}
               {showComponent(i)}
             </S.StyledButton>
           );
@@ -62,7 +68,9 @@ export default function NewPokemon(props) {
         <S.PageButtons theme={theme} onClick={prevPage}>
           prev page
         </S.PageButtons>
-        <S.StyledPage>{page + 1}</S.StyledPage>
+        <S.StyledPage theme={theme}>{`${
+          page + 1
+        } of ${allPages} `}</S.StyledPage>
         <S.PageButtons theme={theme} onClick={nextPage}>
           next
         </S.PageButtons>

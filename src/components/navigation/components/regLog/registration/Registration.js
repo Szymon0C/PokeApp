@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useFormik } from "formik";
 import { registerSchema } from "../../../../../schemas";
-
+import { ThemeContext } from "../../../../../contexts/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../../../../../contexts/UsersContext";
 import * as S from "../style";
@@ -9,6 +9,7 @@ import * as S from "../style";
 export default function Registration() {
   const navigate = useNavigate();
   const { addUser } = useContext(UsersContext);
+  const { theme } = useContext(ThemeContext);
 
   const onSubmit = (values) => {
     addUser(values);
@@ -39,8 +40,11 @@ export default function Registration() {
       <S.FormWrapper>
         <S.StyledForm onSubmit={handleSubmit}>
           <S.InputWrapper>
-            <label htmlFor="name">name</label>
+            <S.StyledLabel theme={theme} htmlFor="name">
+              name
+            </S.StyledLabel>
             <S.StyledInput
+              theme={theme}
               error={errors.name && touched.name ? true : false}
               type="text"
               value={values.name}
@@ -54,8 +58,11 @@ export default function Registration() {
             )}
           </S.InputWrapper>
           <S.InputWrapper>
-            <label htmlFor="email">email</label>
+            <S.StyledLabel theme={theme} htmlFor="email">
+              email
+            </S.StyledLabel>
             <S.StyledInput
+              theme={theme}
               error={errors.email && touched.email ? true : false}
               type="email"
               value={values.email}
@@ -69,8 +76,11 @@ export default function Registration() {
             )}
           </S.InputWrapper>
           <S.InputWrapper>
-            <label htmlFor="password">password</label>
+            <S.StyledLabel theme={theme} htmlFor="password">
+              password
+            </S.StyledLabel>
             <S.StyledInput
+              theme={theme}
               error={errors.password && touched.password ? true : false}
               type="password"
               value={values.password}
@@ -84,8 +94,9 @@ export default function Registration() {
             )}
           </S.InputWrapper>
           <S.InputWrapper>
-            <label>confirm password</label>
+            <S.StyledLabel theme={theme}>confirm password</S.StyledLabel>
             <S.StyledInput
+              theme={theme}
               error={
                 errors.confirmPassword && touched.confirmPassword ? true : false
               }
@@ -101,7 +112,7 @@ export default function Registration() {
             )}
           </S.InputWrapper>
 
-          <S.StyledButton disabled={isSubmitting} type="submit">
+          <S.StyledButton theme={theme} disabled={isSubmitting} type="submit">
             submit
           </S.StyledButton>
         </S.StyledForm>
