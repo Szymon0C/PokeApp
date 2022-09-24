@@ -54,47 +54,52 @@ export default function Arena() {
       {arenaPokemons.length === 0 && (
         <>
           <h1>No pokemon in the arena!</h1>
-          <S.PokemonsWrapper>
-            <S.Placeholder
-              theme={theme}
-              onClick={() => {
-                navigate("/arena-choose");
-              }}
-            >
-              <S.Wrapper>
-                <QuestionMarkIcon fontSize="large" />
-                <span>click and choose!</span>
-              </S.Wrapper>
-            </S.Placeholder>
-            <S.Placeholder
-              theme={theme}
-              onClick={() => {
-                navigate("/arena-choose");
-              }}
-            >
-              <S.Wrapper>
-                <QuestionMarkIcon fontSize="large" />
-                <span>click and choose!</span>
-              </S.Wrapper>
-            </S.Placeholder>
-          </S.PokemonsWrapper>
         </>
       )}
 
-      {!winnerIndex && (
-        <>
-          <S.PokemonsWrapper>
-            {arenaPokemons.map((pokemon) => {
-              return (
-                <Pokemon
-                  key={pokemon}
-                  url={`https://pokeapi.co/api/v2/pokemon/${pokemon}/`}
-                />
-              );
-            })}
-          </S.PokemonsWrapper>
-        </>
-      )}
+      <S.PokemonsWrapper>
+        {arenaPokemons[0] && (
+          <Pokemon
+            key={arenaPokemons[0]}
+            url={`https://pokeapi.co/api/v2/pokemon/${arenaPokemons[0]}/`}
+          />
+        )}
+
+        {!arenaPokemons[0] && (
+          <S.Placeholder
+            theme={theme}
+            onClick={() => {
+              navigate("/arena-choose");
+            }}
+          >
+            <S.Wrapper>
+              <QuestionMarkIcon fontSize="large" />
+              <span>click and choose!</span>
+            </S.Wrapper>
+          </S.Placeholder>
+        )}
+
+        {arenaPokemons[1] && (
+          <Pokemon
+            key={arenaPokemons[1]}
+            url={`https://pokeapi.co/api/v2/pokemon/${arenaPokemons[1]}/`}
+          />
+        )}
+
+        {!arenaPokemons[1] && (
+          <S.Placeholder
+            theme={theme}
+            onClick={() => {
+              navigate("/arena-choose");
+            }}
+          >
+            <S.Wrapper>
+              <QuestionMarkIcon fontSize="large" />
+              <span>click and choose!</span>
+            </S.Wrapper>
+          </S.Placeholder>
+        )}
+      </S.PokemonsWrapper>
 
       {winner && (
         <S.ButtonWrapper>

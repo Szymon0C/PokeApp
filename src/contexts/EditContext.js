@@ -15,7 +15,7 @@ export const EditProvider = ({ children }) => {
   };
   const removePokemon = (pokeInfo) => {
     const choosenPokemon = newPokemon.filter((pokemon) => {
-      return pokemon.name !== pokeInfo.name;
+      return pokemon.id !== pokeInfo.id;
     });
     setNewPokemon(choosenPokemon);
   };

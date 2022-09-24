@@ -28,6 +28,7 @@ export default function PokemonEdit({ value }) {
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
+      id: Math.random(),
       index: index,
       image: value.sprites.front_default,
       name: value.name.substring(0, 1).toUpperCase() + value.name.substring(1),

@@ -35,6 +35,7 @@ export default function Pokemon(prop) {
   useEffect(() => {
     const pokemon = data?.data;
     setPokeInfo({
+      id: prop.new?.id || Math.random(),
       image: pokemon?.sprites.front_default || prop.new?.image,
       name:
         pokemon?.name.substring(0, 1).toUpperCase() +
@@ -46,18 +47,21 @@ export default function Pokemon(prop) {
       ability: pokemon?.abilities[0].ability.name || prop.new?.ability,
     });
 
-    updatedPokemon.map((pokemon) => {
-      if (parseInt(prop.url.substring(34)) === pokemon.index) {
-        setPokeInfo({
-          image: pokemon.image,
-          name: pokemon.name,
-          height: pokemon.height,
-          weight: pokemon.weight,
-          experience: pokemon.experience + winResult * 10,
-          ability: pokemon.ability,
-        });
-      }
-    });
+    if (updatedPokemon.length > 0) {
+      updatedPokemon.map((pokemon) => {
+        if (parseInt(prop.url?.substring(34)) === pokemon.index) {
+          setPokeInfo({
+            id: pokemon.id,
+            image: pokemon.image,
+            name: pokemon.name,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            experience: pokemon.experience + winResult * 10,
+            ability: pokemon.ability,
+          });
+        }
+      });
+    }
   }, [data]);
   if (!prop.new) {
     if (status === "loading") {

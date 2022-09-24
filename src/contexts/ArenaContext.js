@@ -8,7 +8,7 @@ export const ArenaProvider = ({ children }) => {
   const [lose, setLose] = useState([]);
 
   const addArenaPokemon = (index) => {
-    if (arenaPokemons.length < 2) {
+    if (arenaPokemons.length < 2 && !arenaPokemons.includes(index)) {
       setArenaPokemons([...arenaPokemons, index]);
     }
   };

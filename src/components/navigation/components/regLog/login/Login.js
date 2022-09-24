@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { UsersContext } from "../../../../../contexts/UsersContext";
 import { ThemeContext } from "../../../../../contexts/ThemeContext";
@@ -9,9 +9,11 @@ import { useFormik } from "formik";
 
 import * as S from "../style";
 import { loginSchema } from "../../../../../schemas";
-
+import { useSnackbar } from "notistack";
 export default function Login() {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [clicked, setClicked] = useState(false);
   const { users, logIn, logged } = useContext(UsersContext);
   const { theme } = useContext(ThemeContext);
@@ -19,7 +21,6 @@ export default function Login() {
   const onSubmit = (values) => {
     logIn(values);
     setClicked(true);
-    console.log(logged);
     if (logged) {
       navigate("/edit");
     }
@@ -34,10 +35,18 @@ export default function Login() {
       validationSchema: loginSchema,
       onSubmit,
     });
-
-  const showUsers = () => {
-    console.log(users);
-  };
+  useEffect(() => {
+    const showMessage = () => {
+      if (!logged && clicked) {
+        enqueueSnackbar("Invalid Email/Password combination", {
+          autoHideDuration: 3000,
+          variant: "error",
+        });
+        setClicked(false);
+      }
+    };
+    showMessage();
+  }, [logged, clicked]);
 
   return (
     <S.FormWrapper>
@@ -81,9 +90,6 @@ export default function Login() {
         <S.StyledButton theme={theme} type="submit">
           Log in
         </S.StyledButton>
-        {!logged && clicked && (
-          <S.ErrorMessage>Invalid Email/Password combination</S.ErrorMessage>
-        )}
 
         <S.RegisterInfo theme={theme}>
           Don't have an account?

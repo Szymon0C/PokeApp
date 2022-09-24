@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
@@ -27,6 +27,7 @@ export default function Nav() {
   const { index } = useContext(IndexContext);
   const { logged, logOut } = useContext(UsersContext);
   const { theme } = useContext(ThemeContext);
+
   const editComponents = () => {
     if (logged) {
       return (

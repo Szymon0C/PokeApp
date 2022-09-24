@@ -12,8 +12,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function PokeList(props) {
   const search = props.search;
   const { theme } = useContext(ThemeContext);
-  const { newPokemon, updatedPokemon } = useContext(EditContext);
-  const { addArenaPokemon } = useContext(ArenaContext);
+  const { newPokemon } = useContext(EditContext);
+  const { addArenaPokemon, arenaPokemons } = useContext(ArenaContext);
 
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
@@ -45,8 +45,12 @@ export default function PokeList(props) {
       return (
         <div
           onClick={() => {
-            addArenaPokemon(index + 1);
-            navigate("/arena");
+            if (arenaPokemons.length < 2) {
+              addArenaPokemon(index + 1);
+              navigate("/arena");
+            } else {
+              return <span>Arena is full</span>;
+            }
           }}
         >
           <Pokemon key={index} url={finalPokemons[index].url} />
@@ -70,7 +74,7 @@ export default function PokeList(props) {
       <S.Wrapper>
         {page === 0 &&
           newPokemon.map((i) => {
-            return <Pokemon key={i.name} new={i} />;
+            return <Pokemon key={Math.random()} new={i} />;
           })}
         {result.map((i) => {
           return (

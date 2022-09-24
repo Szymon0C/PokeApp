@@ -91,9 +91,18 @@ const Placeholder = styled.div`
   border: ${(props) => {
     return "2px solid" + props.theme.color;
   }};
+  margin 15px 15px 15px 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const Wrapper = styled.div`
   display: flex;
