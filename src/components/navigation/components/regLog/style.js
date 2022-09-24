@@ -19,12 +19,13 @@ const InputWrapper = styled.div`
   flex-direction: column;
 `;
 const StyledInput = styled.input`
+  background: none;
   border-radius: 5px;
   width: 40vw;
   height: 40px;
   margin: 10px 0 10px 0;
   color: ${(props) => {
-    return props.theme.color;
+    return props.theme.color2;
   }};
   border: ${(props) => {
     return props.error === true

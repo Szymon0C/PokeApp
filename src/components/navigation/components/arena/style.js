@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const ArenaWrapper = styled.div`
+  padding-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,11 +57,20 @@ const ClearButton = styled.button`
   background: none;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: ${(props) => {
+    return "1px solid" + props.theme.color;
+  }};
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   &:hover {
     transform: scale(1.1);
-    border: 1px solid #eb3458;
-    color: #eb3458;
+    border: ${(props) => {
+      return "1px solid" + props.theme.color2;
+    }};
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
   }
 `;
 const StyledButton = styled.button`
@@ -69,13 +79,22 @@ const StyledButton = styled.button`
   font-size: 16px;
   background: none;
   border-radius: 5px;
-  border: 1px solid #000;
+  border: ${(props) => {
+    return "1px solid" + props.theme.color;
+  }};
+  color: ${(props) => {
+    return props.theme.color;
+  }};
   margin-bottom: 60px;
   &:hover {
     transform: scale(1.1);
     bottom: 430px;
-    border: 1px solid #eb3458;
-    color: #eb3458;
+    border: ${(props) => {
+      return "1px solid" + props.theme.color2;
+    }};
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
   }
 `;
 const ButtonWrapper = styled.div`
@@ -108,8 +127,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: ${(props) => {
+    return props.theme.color;
+  }};
 `;
-
+const Message = styled.h1`
+  color: ${(props) => {
+    return props.theme.color;
+  }};
+`;
 export {
   ArenaWrapper,
   PokemonsWrapper,
@@ -118,4 +144,5 @@ export {
   ButtonWrapper,
   Placeholder,
   Wrapper,
+  Message,
 };

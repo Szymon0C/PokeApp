@@ -53,7 +53,7 @@ export default function Arena() {
     <S.ArenaWrapper>
       {arenaPokemons.length === 0 && (
         <>
-          <h1>No pokemon in the arena!</h1>
+          <S.Message theme={theme}>No pokemon in the arena!</S.Message>
         </>
       )}
 
@@ -72,7 +72,7 @@ export default function Arena() {
               navigate("/arena-choose");
             }}
           >
-            <S.Wrapper>
+            <S.Wrapper theme={theme}>
               <QuestionMarkIcon fontSize="large" />
               <span>click and choose!</span>
             </S.Wrapper>
@@ -93,7 +93,7 @@ export default function Arena() {
               navigate("/arena-choose");
             }}
           >
-            <S.Wrapper>
+            <S.Wrapper theme={theme}>
               <QuestionMarkIcon fontSize="large" />
               <span>click and choose!</span>
             </S.Wrapper>
@@ -103,9 +103,12 @@ export default function Arena() {
 
       {winner && (
         <S.ButtonWrapper>
-          <S.StyledButton onClick={whoWin}>Let's fight</S.StyledButton>
+          <S.StyledButton theme={theme} onClick={whoWin}>
+            Let's fight
+          </S.StyledButton>
           <Link to={"/"}>
             <S.ClearButton
+              theme={theme}
               onClick={() => {
                 setArenaPokemons([]);
               }}
