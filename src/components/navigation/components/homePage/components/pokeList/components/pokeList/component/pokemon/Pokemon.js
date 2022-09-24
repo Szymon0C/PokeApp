@@ -2,12 +2,11 @@ import { useContext, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
-import { EditContext } from "../../../../../../../../contexts/EditContext";
-import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
-
+import { ArenaContext } from "../../../../../../../../../../contexts/ArenaContext";
+import { EditContext } from "../../../../../../../../../../contexts/EditContext";
+import { ThemeContext } from "../../../../../../../../../../contexts/ThemeContext";
 import ClearIcon from "@mui/icons-material/Clear";
-import useFightResult from "../../../../../../../../customHooks/useFightResult";
+import useFightResult from "../../../../../../../../../../customHooks/useFightResult";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -46,6 +45,19 @@ export default function Pokemon(prop) {
         pokemon?.base_experience + winResult * 10 || prop.new?.experience,
       ability: pokemon?.abilities[0].ability.name || prop.new?.ability,
     });
+
+    updatedPokemon.map((pokemon) => {
+      if (parseInt(prop.url.substring(34)) === pokemon.index) {
+        setPokeInfo({
+          image: pokemon.image,
+          name: pokemon.name,
+          height: pokemon.height,
+          weight: pokemon.weight,
+          experience: pokemon.experience + winResult * 10,
+          ability: pokemon.ability,
+        });
+      }
+    });
   }, [data]);
   if (!prop.new) {
     if (status === "loading") {
@@ -59,16 +71,6 @@ export default function Pokemon(prop) {
       return <h2>Error!</h2>;
     }
   }
-
-  // updatedPokemon.map((pokemon) => {
-  //   if (prop.url === pokemon.index) {
-  //     pokeInfo.name = pokemon.name;
-  //     pokeInfo.height = pokemon.height;
-  //     pokeInfo.weight = pokemon.weight;
-  //     pokeInfo.experience = pokemon.experience + winResult * 10;
-  //     pokeInfo.ability = pokemon.ability;
-  //   }
-  // });
 
   return (
     <>

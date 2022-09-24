@@ -5,7 +5,7 @@ import { EditContext } from "../../../../contexts/EditContext";
 import { Link } from "react-router-dom";
 import useFights from "../../../../customHooks/useFights";
 
-import Pokemon from "../homePage/components/pokeList/components/pokemon/Pokemon";
+import Pokemon from "../homePage/components/pokeList/components/pokeList/component/pokemon/Pokemon";
 
 import * as S from "./style";
 

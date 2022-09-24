@@ -1,7 +1,5 @@
 import { useContext } from "react";
-
-import Pokemon from "../homePage/components/pokeList/components/pokemon/Pokemon";
-
+import Pokemon from "../homePage/components/pokeList/components/pokeList/component/pokemon/Pokemon";
 import { FavouritePokemonContext } from "../../../../contexts/FavouritePokemonsContext";
 
 import * as S from "./style";

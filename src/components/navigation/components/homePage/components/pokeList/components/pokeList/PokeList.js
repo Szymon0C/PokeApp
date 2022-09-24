@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import Pokemon from "../pokemon/Pokemon";
-
+import Pokemon from "./component/pokemon/Pokemon";
 import * as S from "./style";
 import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch";
 
@@ -9,14 +8,13 @@ import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
 
 import { useLocation } from "react-router-dom";
-export default function NewPokemon(props) {
+export default function PokeList(props) {
   const search = props.search;
   const { theme } = useContext(ThemeContext);
   const { newPokemon, updatedPokemon } = useContext(EditContext);
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
   });
-
   const location = useLocation();
   const { setIndex } = useContext(IndexContext);
 

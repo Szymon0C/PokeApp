@@ -23,7 +23,10 @@ export const ThemeProvider = ({ children }) => {
     if (
       parseFloat(
         `${parseInt(date.substring(15))}.${parseInt(date.substring(19))}`
-      ) > 22
+      ) > 22 ||
+      parseFloat(
+        `${parseInt(date.substring(15))}.${parseInt(date.substring(19))}`
+      ) < 6
     ) {
       setTheme(choice.dark);
     }

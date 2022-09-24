@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PokeList from "../homePage/components/pokeList/PokeList";
+import PokeData from "../homePage/components/pokeList/PokeData";
 import Input from "../homePage/components/input/Input";
 import * as S from "./style";
 
@@ -16,7 +16,7 @@ export default function Edit() {
           }}
           result={search}
         />
-        <PokeList result={search} />
+        <PokeData result={search} />
       </S.PokeListWrapper>
     </>
   );
