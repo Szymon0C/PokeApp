@@ -26,6 +26,9 @@ const PageButtons = styled.button`
   }};
   border-radius: 5px;
   display: flex;
+  visibility: ${(props) => {
+    return props.hide;
+  }};
   justify-content: center;
   align-items: center;
   height: 30px;
@@ -39,7 +42,6 @@ const StyledPage = styled.span`
   }};
 `;
 const StyledButton = styled.div`
-  border: none;
   background: none;
 `;
 const StyledLink = styled(Link)`

@@ -6,23 +6,29 @@ import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch
 import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
+import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function PokeList(props) {
   const search = props.search;
   const { theme } = useContext(ThemeContext);
   const { newPokemon, updatedPokemon } = useContext(EditContext);
+  const { addArenaPokemon } = useContext(ArenaContext);
+
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
   });
   const location = useLocation();
+  const navigate = useNavigate();
   const { setIndex } = useContext(IndexContext);
 
   const { result, page, allPages, nextPage, prevPage } = usePokemonFetch(
     finalPokemons.length,
     newPokemon.length
   );
-
+  if (finalPokemons.length === 0) {
+    return <h2>No results, enter a different name</h2>;
+  }
   const showComponent = (index) => {
     if (location.pathname === "/") {
       return (
@@ -34,6 +40,17 @@ export default function PokeList(props) {
         >
           <Pokemon key={index} url={finalPokemons[index].url} />
         </S.StyledLink>
+      );
+    } else if (location.pathname === "/arena-choose") {
+      return (
+        <div
+          onClick={() => {
+            addArenaPokemon(index + 1);
+            navigate("/arena");
+          }}
+        >
+          <Pokemon key={index} url={finalPokemons[index].url} />
+        </div>
       );
     } else {
       return (
@@ -64,13 +81,23 @@ export default function PokeList(props) {
         })}
       </S.Wrapper>
       <S.ButtonsWrapper>
-        <S.PageButtons theme={theme} onClick={prevPage}>
+        <S.PageButtons
+          theme={theme}
+          onClick={prevPage}
+          hide={page === 0 ? "hidden" : "visible"}
+        >
           prev page
         </S.PageButtons>
+
         <S.StyledPage theme={theme}>{`${
           page + 1
         } of ${allPages} `}</S.StyledPage>
-        <S.PageButtons theme={theme} onClick={nextPage}>
+
+        <S.PageButtons
+          theme={theme}
+          onClick={nextPage}
+          hide={page + 1 < allPages ? "visible" : "hidden"}
+        >
           next
         </S.PageButtons>
       </S.ButtonsWrapper>

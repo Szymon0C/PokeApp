@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import * as S from "./switch/style";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import * as S from "./style";
 
 export default function Switch() {
   const { changeTheme, theme } = useContext(ThemeContext);

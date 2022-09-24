@@ -84,6 +84,22 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const Placeholder = styled.div`
+  width: 350px;
+  height: 440px;
+  border-radius: 10px;
+  border: ${(props) => {
+    return "2px solid" + props.theme.color;
+  }};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export {
   ArenaWrapper,
@@ -91,4 +107,6 @@ export {
   StyledButton,
   ClearButton,
   ButtonWrapper,
+  Placeholder,
+  Wrapper,
 };

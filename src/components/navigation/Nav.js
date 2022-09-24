@@ -7,12 +7,15 @@ import * as S from "./style";
 import Logo from "./components/logo/Logo";
 import HomePage from "./components/homePage/HomePage";
 import Favourite from "./components/fav/Favourite";
+
 import Arena from "./components/arena/Arena";
+import ArenaChoose from "./components/arena/component/ArenaChoose";
+
 import RegLog from "./components/regLog/RegLog";
 import Edit from "./components/edit/Edit";
-import Switch from "./components/Switch";
-
+import Switch from "./components/switch/Switch";
 import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
+
 import Registration from "./components/regLog/registration/Registration";
 import InfoTransfer from "./components/edit/InfoTransfer";
 
@@ -84,6 +87,7 @@ export default function Nav() {
             <Route path="/" element={<HomePage />} />
             <Route path="/favourtie" element={<Favourite />} />
             <Route path="/arena" element={<Arena />} />
+            <Route path="/arena-choose" element={<ArenaChoose />} />
             {editComponents()}
             <Route
               path="/full-page"
