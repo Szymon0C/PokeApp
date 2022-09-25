@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/PokeApp/static/css/main.e6c13ad2.css",
+    "main.js": "/PokeApp/static/js/main.5568da5b.js",
+    "static/js/787.246f5904.chunk.js": "/PokeApp/static/js/787.246f5904.chunk.js",
+    "index.html": "/PokeApp/index.html",
+    "main.e6c13ad2.css.map": "/PokeApp/static/css/main.e6c13ad2.css.map",
+    "main.5568da5b.js.map": "/PokeApp/static/js/main.5568da5b.js.map",
+    "787.246f5904.chunk.js.map": "/PokeApp/static/js/787.246f5904.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.5568da5b.js"
+  ]
+}
