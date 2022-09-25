@@ -1,39 +1,49 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+
 import { useFormik } from "formik";
-import { registerSchema } from "../../../../../schemas";
+import { useSnackbar } from "notistack";
+
 import { ThemeContext } from "../../../../../contexts/ThemeContext";
-import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../../../../../contexts/UsersContext";
+import { registerSchema } from "../../../../../schemas";
 import * as S from "../style";
 
 export default function Registration() {
-  const navigate = useNavigate();
-  const { addUser } = useContext(UsersContext);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [clicked, setClicked] = useState(false);
+  const { addUser, logged } = useContext(UsersContext);
   const { theme } = useContext(ThemeContext);
 
   const onSubmit = (values) => {
     addUser(values);
-    navigate("/edit");
+    setClicked(true);
   };
 
-  const {
-    errors,
-    values,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: registerSchema,
-    onSubmit,
-  });
+  const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      validationSchema: registerSchema,
+      onSubmit,
+    });
+  useEffect(() => {
+    const checkLogin = () => {
+      if (!logged && clicked) {
+        enqueueSnackbar("Email is already registered", {
+          autoHideDuration: 3000,
+          variant: "error",
+        });
+        setClicked(false);
+      }
+    };
+    checkLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [logged, clicked]);
 
   return (
     <>
@@ -88,6 +98,7 @@ export default function Registration() {
               id="password"
               placeholder="Enter your password"
               onBlur={handleBlur}
+              autoComplete="true"
             />
             {errors.password && touched.password && (
               <S.ErrorMessage>{errors.password}</S.ErrorMessage>
@@ -106,13 +117,14 @@ export default function Registration() {
               id="confirmPassword"
               placeholder="Confirm password"
               onBlur={handleBlur}
+              autoComplete="true"
             />
             {errors.confirmPassword && touched.confirmPassword && (
               <S.ErrorMessage>{errors.confirmPassword}</S.ErrorMessage>
             )}
           </S.InputWrapper>
 
-          <S.StyledButton theme={theme} disabled={isSubmitting} type="submit">
+          <S.StyledButton theme={theme} type="submit">
             submit
           </S.StyledButton>
         </S.StyledForm>

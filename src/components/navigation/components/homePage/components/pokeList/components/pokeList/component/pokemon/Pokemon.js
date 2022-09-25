@@ -1,18 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 
+import ClearIcon from "@mui/icons-material/Clear";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 import { ArenaContext } from "../../../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../../../contexts/EditContext";
 import { ThemeContext } from "../../../../../../../../../../contexts/ThemeContext";
-import ClearIcon from "@mui/icons-material/Clear";
 import useFightResult from "../../../../../../../../../../customHooks/useFightResult";
-
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-
-import axios from "axios";
-
 import * as S from "./style";
 
 export default function Pokemon(prop) {
@@ -48,6 +45,7 @@ export default function Pokemon(prop) {
     });
 
     if (updatedPokemon.length > 0) {
+      // eslint-disable-next-line
       updatedPokemon.map((pokemon) => {
         if (parseInt(prop.url?.substring(34)) === pokemon.index) {
           setPokeInfo({
@@ -62,6 +60,7 @@ export default function Pokemon(prop) {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   if (!prop.new) {
     if (status === "loading") {

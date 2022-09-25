@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import useDraw from "./useDraw";
 import axios from "axios";
+
+import useDraw from "./useDraw";
 
 export default function useFights(index1, index2) {
   const [data1, setData1] = useState(null);

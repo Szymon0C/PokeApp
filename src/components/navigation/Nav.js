@@ -1,27 +1,22 @@
 import { useContext } from "react";
 
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
-import * as S from "./style";
-
-import Logo from "./components/logo/Logo";
-import HomePage from "./components/homePage/HomePage";
-import Favourite from "./components/fav/Favourite";
-
-import Arena from "./components/arena/Arena";
-import ArenaChoose from "./components/arena/component/ArenaChoose";
-
-import RegLog from "./components/regLog/RegLog";
-import Edit from "./components/edit/Edit";
-import Switch from "./components/switch/Switch";
-import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
-
-import Registration from "./components/regLog/registration/Registration";
-import InfoTransfer from "./components/edit/InfoTransfer";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 import { IndexContext } from "../../contexts/IndexContext";
-import { UsersContext } from "../../contexts/UsersContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { UsersContext } from "../../contexts/UsersContext";
+import Arena from "./components/arena/Arena";
+import ArenaChoose from "./components/arena/component/ArenaChoose";
+import Edit from "./components/edit/Edit";
+import InfoTransfer from "./components/edit/InfoTransfer";
+import Favourite from "./components/fav/Favourite";
+import FullPagePokemon from "./components/homePage/components/pokeList/components/fullPagePokemon/fullPagePokemon";
+import HomePage from "./components/homePage/HomePage";
+import Logo from "./components/logo/Logo";
+import Registration from "./components/regLog/registration/Registration";
+import RegLog from "./components/regLog/RegLog";
+import Switch from "./components/switch/Switch";
+import * as S from "./style";
 
 export default function Nav() {
   const { index } = useContext(IndexContext);
@@ -71,7 +66,7 @@ export default function Nav() {
             {logged && (
               <S.LogDiv>
                 <div>
-                  <S.LogMessage theme={theme}>Zalogowany:</S.LogMessage>
+                  <S.LogMessage theme={theme}>Logged in as:</S.LogMessage>
                   <S.AccountName theme={theme}>{logged.name}</S.AccountName>
                 </div>
                 <S.LogOutButton onClick={logOut}>log out</S.LogOutButton>
@@ -96,6 +91,7 @@ export default function Nav() {
             />
 
             <Route path="/register" element={<Registration />} />
+            <Route path="*" element={<HomePage />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,12 +1,11 @@
 import { useContext } from "react";
 
-import { IndexContext } from "../../../../contexts/IndexContext";
-
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { useQuery } from "@tanstack/react-query";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import { IndexContext } from "../../../../contexts/IndexContext";
 import PokemonEdit from "./component/PokemonEdit";
 
 export default function InfoTransfer() {

@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
@@ -30,6 +30,7 @@ export const ThemeProvider = ({ children }) => {
     ) {
       setTheme(choice.dark);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeTheme = () => {

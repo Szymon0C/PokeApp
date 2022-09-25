@@ -1,8 +1,9 @@
-import { useState, useContext } from "react";
-import PokeData from "../homePage/components/pokeList/PokeData";
-import Input from "../homePage/components/input/Input";
-import * as S from "./style";
+import { useContext, useState } from "react";
+
 import { ThemeContext } from "../../../../contexts/ThemeContext";
+import Input from "../homePage/components/input/Input";
+import PokeData from "../homePage/components/pokeList/PokeData";
+import * as S from "./style";
 
 export default function Edit() {
   const [search, setSearch] = useState("");

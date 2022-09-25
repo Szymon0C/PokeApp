@@ -4,6 +4,7 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const StyledImage = styled.img`
   width: 120px;
 `;

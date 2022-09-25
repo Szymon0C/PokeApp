@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const passwordRules =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-,.]).{8,}$/;
 
 export const registerSchema = yup.object().shape({
   name: yup.string().min(2).max(15).required("Required"),

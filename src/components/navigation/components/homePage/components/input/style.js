@@ -17,6 +17,7 @@ const StyledInput = styled(TextField)`
     color: ${(props) => {
       return props.theme.color2;
     }};
+
     & fieldset {
       border-color: ${(props) => {
         return props.theme.color;

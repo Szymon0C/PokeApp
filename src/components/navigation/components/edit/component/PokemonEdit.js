@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 
-import { IndexContext } from "../../../../../contexts/IndexContext";
-import { EditContext } from "../../../../../contexts/EditContext";
-import { ThemeContext } from "../../../../../contexts/ThemeContext";
-
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+
+import { EditContext } from "../../../../../contexts/EditContext";
+import { IndexContext } from "../../../../../contexts/IndexContext";
+import { ThemeContext } from "../../../../../contexts/ThemeContext";
+import { pokemonEditSchema } from "../../../../../schemas";
 import * as S from "./style";
 
-import { useNavigate } from "react-router-dom";
-import { pokemonEditSchema } from "../../../../../schemas";
 export default function PokemonEdit({ value }) {
   const { theme } = useContext(ThemeContext);
   const { index } = useContext(IndexContext);

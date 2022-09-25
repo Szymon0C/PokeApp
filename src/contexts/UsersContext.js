@@ -1,10 +1,11 @@
-import { useState, createContext } from "react";
+import { createContext, useState } from "react";
 
 export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [logged, setLogged] = useState(true);
+  const [logged, setLogged] = useState(null);
+
   let repeat = false;
   const addUser = (newUser) => {
     // eslint-disable-next-line

@@ -1,7 +1,9 @@
 import { useState } from "react";
-import * as S from "./style";
-import PokeData from "./components/pokeList/PokeData";
+
 import Input from "./components/input/Input";
+import PokeData from "./components/pokeList/PokeData";
+import * as S from "./style";
+
 export default function HomePage(props) {
   const [search, setSearch] = useState("");
   return (
@@ -12,6 +14,7 @@ export default function HomePage(props) {
         }}
         result={search}
       />
+
       <PokeData result={search} />
     </S.Wrapper>
   );

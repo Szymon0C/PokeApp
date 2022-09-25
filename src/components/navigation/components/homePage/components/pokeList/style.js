@@ -6,9 +6,11 @@ const StyledButton = styled.div`
   border: none;
   background: none;
 `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+
 const ButtonsWrapper = styled.div`
   position: fixed;
   bottom: 0;
@@ -19,6 +21,7 @@ const ButtonsWrapper = styled.div`
   height: 50px;
   background-color: rgba(360, 360, 360, 0.4);
 `;
+
 const PageButtons = styled.button`
   background: none;
   border: 1px solid #eb3458;
@@ -29,10 +32,11 @@ const PageButtons = styled.button`
   color: #eb3458;
   height: 30px;
   width: 100px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 10px 0 10px;
 `;
+
 const StyledPage = styled.span`
   color: #eb3458;
 `;
+
 export { StyledButton, StyledLink, ButtonsWrapper, PageButtons, StyledPage };

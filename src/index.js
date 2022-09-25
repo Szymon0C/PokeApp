@@ -1,17 +1,18 @@
 import React from "react";
+
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import App from "./App";
+import { ArenaProvider } from "./contexts/ArenaContext";
+import { EditProvider } from "./contexts/EditContext";
+import { FavouritePokemonProvider } from "./contexts/FavouritePokemonsContext";
+import { IndexProvider } from "./contexts/IndexContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { UsersProvider } from "./contexts/UsersContext";
 import reportWebVitals from "./reportWebVitals";
 
 import { SnackbarProvider } from "notistack";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { IndexProvider } from "./contexts/IndexContext";
-import { FavouritePokemonProvider } from "./contexts/FavouritePokemonsContext";
-import { ArenaProvider } from "./contexts/ArenaContext";
-import { UsersProvider } from "./contexts/UsersContext";
-import { EditProvider } from "./contexts/EditContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,4 +1,5 @@
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import Nav from "./components/navigation/Nav";
 
 const queryClient = new QueryClient();

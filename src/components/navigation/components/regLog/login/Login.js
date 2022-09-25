@@ -1,29 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 
-import { UsersContext } from "../../../../../contexts/UsersContext";
-import { ThemeContext } from "../../../../../contexts/ThemeContext";
-
-import { useNavigate } from "react-router-dom";
-
 import { useFormik } from "formik";
-
-import * as S from "../style";
-import { loginSchema } from "../../../../../schemas";
 import { useSnackbar } from "notistack";
+
+import { ThemeContext } from "../../../../../contexts/ThemeContext";
+import { UsersContext } from "../../../../../contexts/UsersContext";
+import { loginSchema } from "../../../../../schemas";
+import * as S from "../style";
+
 export default function Login() {
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [type, setType] = useState("password");
   const [clicked, setClicked] = useState(false);
-  const { users, logIn, logged } = useContext(UsersContext);
+  const { logIn, logged } = useContext(UsersContext);
   const { theme } = useContext(ThemeContext);
 
   const onSubmit = (values) => {
     logIn(values);
     setClicked(true);
-    if (logged) {
-      navigate("/edit");
-    }
   };
 
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
@@ -36,7 +31,7 @@ export default function Login() {
       onSubmit,
     });
   useEffect(() => {
-    const showMessage = () => {
+    const checkLogin = () => {
       if (!logged && clicked) {
         enqueueSnackbar("Invalid Email/Password combination", {
           autoHideDuration: 3000,
@@ -45,9 +40,12 @@ export default function Login() {
         setClicked(false);
       }
     };
-    showMessage();
+    checkLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logged, clicked]);
-
+  const showPassword = () => {
+    setType(type === "password" ? "text" : "password");
+  };
   return (
     <S.FormWrapper>
       <S.StyledForm onSubmit={handleSubmit}>
@@ -76,13 +74,21 @@ export default function Login() {
           <S.StyledInput
             theme={theme}
             error={errors.password && touched.password ? true : false}
-            type="password"
+            type={type}
             value={values.password}
             onChange={handleChange}
             id="password"
             placeholder="Enter your password"
             onBlur={handleBlur}
+            autoComplete="true"
           />
+          <S.ShowPasswordWrapper>
+            <input type="checkbox" onClick={showPassword} />
+            <S.StyledLabel htmlFor="password" theme={theme}>
+              Show password
+            </S.StyledLabel>
+          </S.ShowPasswordWrapper>
+
           {errors.password && touched.password && (
             <S.ErrorMessage>{errors.password}</S.ErrorMessage>
           )}

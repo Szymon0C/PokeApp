@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function usePokemonFetch(allResult, newPokemons) {
   const currentPokemons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   const [page, setPage] = useState(0);
   let restCheck = 0;
   const allPages = Math.ceil(allResult / 15);
   const rest = allResult - (allPages - 1) * 15;
+
   useEffect(() => {
     setPage(0);
   }, [allResult]);
@@ -20,6 +21,7 @@ export default function usePokemonFetch(allResult, newPokemons) {
         restCheck++;
         return restCheck <= rest;
       } else if (page > allPages - 1) {
+        // eslint-disable-next-line
         return;
       }
       return true;

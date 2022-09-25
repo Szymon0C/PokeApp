@@ -1,21 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useQuery } from "@tanstack/react-query";
-
-import useFightResult from "../../../../../../../../customHooks/useFightResult";
-
 import axios from "axios";
 
-import { IndexContext } from "../../../../../../../../contexts/IndexContext";
-import { FavouritePokemonContext } from "../../../../../../../../contexts/FavouritePokemonsContext";
 import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 import { EditContext } from "../../../../../../../../contexts/EditContext";
+import { FavouritePokemonContext } from "../../../../../../../../contexts/FavouritePokemonsContext";
+import { IndexContext } from "../../../../../../../../contexts/IndexContext";
 import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-
+import useFightResult from "../../../../../../../../customHooks/useFightResult";
 import * as S from "./style";
 
 export default function FullPagePokemon() {
@@ -84,6 +80,7 @@ export default function FullPagePokemon() {
     experience: pokemon?.base_experience + winResult * 10,
     ability: pokemon?.abilities[0].ability.name,
   };
+  // eslint-disable-next-line
   updatedPokemon.map((pokemon) => {
     if (index === pokemon.index) {
       pokeInfo.name = pokemon.name;

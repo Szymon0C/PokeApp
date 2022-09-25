@@ -51,62 +51,89 @@ const PokemonsWrapper = styled.div`
     }
   }
 `;
+
 const ClearButton = styled.button`
   width: 180px;
   height: 70px;
   background: none;
   font-size: 16px;
   border-radius: 5px;
+
   border: ${(props) => {
     return "1px solid" + props.theme.color;
   }};
+
   color: ${(props) => {
     return props.theme.color;
   }};
+
   &:hover {
     transform: scale(1.1);
+
     border: ${(props) => {
       return "1px solid" + props.theme.color2;
     }};
+
     color: ${(props) => {
       return props.theme.color2;
     }};
   }
+
+  @media only screen and (max-width: 600px) {
+    position: relative;
+    top: 430px;
+    width: 80vw;
+  }
 `;
+
 const StyledButton = styled.button`
   width: 180px;
   height: 70px;
   font-size: 16px;
   background: none;
   border-radius: 5px;
+  margin-bottom: 60px;
+
   border: ${(props) => {
     return "1px solid" + props.theme.color;
   }};
+
   color: ${(props) => {
     return props.theme.color;
   }};
-  margin-bottom: 60px;
+
   &:hover {
     transform: scale(1.1);
     bottom: 430px;
+
     border: ${(props) => {
       return "1px solid" + props.theme.color2;
     }};
+
     color: ${(props) => {
       return props.theme.color2;
     }};
   }
+
+  @media only screen and (max-width: 600px) {
+    position: relative;
+    top: 430px;
+    width: 80vw;
+  }
 `;
+
 const ButtonWrapper = styled.div`
   position: relative;
   bottom: 430px;
   display: flex;
   flex-direction: column;
 `;
+
 const Placeholder = styled.div`
   width: 350px;
   height: 440px;
   border-radius: 10px;
+
   border: ${(props) => {
     return "2px solid" + props.theme.color;
   }};
@@ -122,19 +149,37 @@ const Placeholder = styled.div`
   &:hover {
     transform: scale(1.1);
   }
+
+  @media only screen and (max-width: 600px) {
+    width: 40vw;
+    height: 220px;
+    margin 5px 5px 5px 5px;
+  }
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   color: ${(props) => {
     return props.theme.color;
   }};
 `;
+
 const Message = styled.h1`
   color: ${(props) => {
     return props.theme.color;
   }};
+`;
+
+const WinnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 600px) {
+    margin-top: 80px;
+  }
 `;
 export {
   ArenaWrapper,
@@ -145,4 +190,5 @@ export {
   Placeholder,
   Wrapper,
   Message,
+  WinnerWrapper,
 };

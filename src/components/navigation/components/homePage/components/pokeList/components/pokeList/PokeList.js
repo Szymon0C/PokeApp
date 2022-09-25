@@ -1,19 +1,22 @@
 import { useContext } from "react";
-import Pokemon from "./component/pokemon/Pokemon";
-import * as S from "./style";
-import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch";
-
-import { IndexContext } from "../../../../../../../../contexts/IndexContext";
-import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
-import { EditContext } from "../../../../../../../../contexts/EditContext";
-import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
 
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { ArenaContext } from "../../../../../../../../contexts/ArenaContext";
+import { EditContext } from "../../../../../../../../contexts/EditContext";
+import { IndexContext } from "../../../../../../../../contexts/IndexContext";
+import { ThemeContext } from "../../../../../../../../contexts/ThemeContext";
+import { UsersContext } from "../../../../../../../../contexts/UsersContext";
+import usePokemonFetch from "../../../../../../../../customHooks/usePokemonFetch";
+import Pokemon from "./component/pokemon/Pokemon";
+import * as S from "./style";
+
 export default function PokeList(props) {
   const search = props.search;
   const { theme } = useContext(ThemeContext);
   const { newPokemon } = useContext(EditContext);
   const { addArenaPokemon, arenaPokemons } = useContext(ArenaContext);
+  const { logged } = useContext(UsersContext);
 
   const finalPokemons = props.result.filter((pokemon) => {
     return pokemon.name.includes(search);
@@ -57,16 +60,28 @@ export default function PokeList(props) {
         </div>
       );
     } else {
-      return (
-        <S.StyledLink
-          to={"/pokemon-edit"}
-          onClick={() => {
-            setIndex(parseInt(finalPokemons[index].url.substring(34)));
-          }}
-        >
-          <Pokemon key={index} url={finalPokemons[index].url} />
-        </S.StyledLink>
-      );
+      if (logged) {
+        return (
+          <S.StyledLink
+            to={"/pokemon-edit"}
+            onClick={() => {
+              setIndex(parseInt(finalPokemons[index].url.substring(34)));
+            }}
+          >
+            <Pokemon key={index} url={finalPokemons[index].url} />
+          </S.StyledLink>
+        );
+      } else
+        return (
+          <S.StyledLink
+            to={"/full-page"}
+            onClick={() => {
+              setIndex(parseInt(finalPokemons[index].url.substring(34)));
+            }}
+          >
+            <Pokemon key={index} url={finalPokemons[index].url} />
+          </S.StyledLink>
+        );
     }
   };
   return (

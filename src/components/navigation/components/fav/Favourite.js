@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import Pokemon from "../homePage/components/pokeList/components/pokeList/component/pokemon/Pokemon";
+
 import { FavouritePokemonContext } from "../../../../contexts/FavouritePokemonsContext";
 import { ThemeContext } from "../../../../contexts/ThemeContext";
+import Pokemon from "../homePage/components/pokeList/components/pokeList/component/pokemon/Pokemon";
 import * as S from "./style";
 
 export default function Favourite() {

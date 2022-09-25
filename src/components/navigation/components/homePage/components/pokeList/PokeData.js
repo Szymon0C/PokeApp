@@ -1,11 +1,11 @@
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { useQuery } from "@tanstack/react-query";
 
 import PokeList from "./components/pokeList/PokeList";
 
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 
 export default function PokeData(props) {
   const { data: data2, status } = useQuery(["t2"], () => {
