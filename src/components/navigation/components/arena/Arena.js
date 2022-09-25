@@ -104,7 +104,7 @@ export default function Arena() {
         </S.PokemonsWrapper>
       )}
 
-      {!winnerIndex && (
+      {arenaPokemons.length === 2 && (
         <S.ButtonWrapper>
           <S.StyledButton theme={theme} onClick={whoWin}>
             Let's fight
