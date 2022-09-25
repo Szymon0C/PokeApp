@@ -117,7 +117,10 @@ export default function FullPagePokemon() {
                 <FavoriteIcon />
               </S.FavIcon>
               <S.ArenaIcon color={arenaColor} onClick={arenaPokemonAction}>
-                <S.FightIcon src="/fight.svg" color={arenaColor} />
+                <S.FightIcon
+                  src="https://www.svgrepo.com/show/254372/sword-fight.svg"
+                  color={arenaColor}
+                />
               </S.ArenaIcon>
             </S.PokeHeading>
 

@@ -31,7 +31,13 @@ export default function Nav() {
           <Route path="/pokemon-edit" element={<InfoTransfer />} />
         </>
       );
-    } else return <Route path="/log-reg" element={<RegLog />} />;
+    } else
+      return (
+        <>
+          <Route path="/log-reg" element={<RegLog />} />;
+          <Route path="/register" element={<Registration />} />
+        </>
+      );
   };
 
   return (
@@ -90,7 +96,6 @@ export default function Nav() {
               element={<FullPagePokemon index={index} />}
             />
 
-            <Route path="/register" element={<Registration />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </div>
