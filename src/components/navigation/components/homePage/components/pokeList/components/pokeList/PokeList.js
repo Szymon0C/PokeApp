@@ -19,7 +19,7 @@ export default function PokeList(props) {
   const { logged } = useContext(UsersContext);
 
   const finalPokemons = props.result.filter((pokemon) => {
-    return pokemon.name.includes(search);
+    return pokemon.name.includes(search.toLowerCase());
   });
   const location = useLocation();
   const navigate = useNavigate();
