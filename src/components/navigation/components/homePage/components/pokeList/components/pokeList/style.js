@@ -58,6 +58,26 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const StyledInput = styled.input`
+  border: none;
+  background: none;
+  text-align: center;
+  color: ${(props) => {
+    return props.theme.color2;
+  }};
+  width: 25px;
+
+  ::placeholder {
+    color: ${(props) => {
+      return props.theme.color2;
+    }};
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 export {
   Wrapper,
   ButtonsWrapper,
@@ -65,4 +85,5 @@ export {
   StyledPage,
   StyledButton,
   StyledLink,
+  StyledInput,
 };
