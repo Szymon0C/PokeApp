@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
+import { Field, Form } from "formik";
 
 const FormWrapper = styled.div`
   height: 70vh;
@@ -9,7 +10,7 @@ const FormWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styled(Form)`
   width: 70vw;
   display: flex;
   flex-direction: column;

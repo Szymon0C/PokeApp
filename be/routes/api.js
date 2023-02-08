@@ -6,11 +6,14 @@ const {
   saveUser,
   updateUser,
   getUser,
+  getAllUsersFilters,
 } = require("../actions/api/userActions");
 
 router.get("/users", getAllUsers);
 
 router.get("/users/:id", getUser);
+
+router.get("/users/:id?", getAllUsersFilters);
 
 router.post("/users", saveUser);
 
