@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const { port } = require("./config");
 const apiRouter = require("./routes/api");
 const bodyParser = require("body-parser");
